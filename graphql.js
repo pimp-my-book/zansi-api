@@ -1,10 +1,10 @@
- const {ApolloServer,gql} = require('apollo-server-lambda');
+ const {ApolloServer, gql} = require('apollo-server-lambda');
 
  const typeDefs = gql`
-    type Query{
+    type Query {
       hello: String
     }
- `
+ `;
 
  const resolvers = {
   Query: {
@@ -16,8 +16,8 @@
    typeDefs,
    resolvers,
    context: ({event,context}) => ({
-      headers:event.headers,
-      fucntionName: context.functionName,
+      headers: event.headers,
+      functionName: context.functionName,
       event,
       context,
    }),
@@ -25,7 +25,7 @@
 
  exports.graphqlHandler = server.createHandler({
    cors: {
-     origin: true,
+     origin: "*",
      credentials: true,
    },
  });
