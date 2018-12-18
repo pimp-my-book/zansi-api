@@ -28,9 +28,9 @@ provider:
 
 functions:
   graphql:
-    handler: graphql.graphqlHandler
+    handler: graphql.query
     events:
       - http:
           path: graphql
-          method: post 
+          method: get 
           cors: true
