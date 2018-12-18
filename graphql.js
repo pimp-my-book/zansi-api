@@ -1,4 +1,5 @@
  const {ApolloServer, gql} = require('apollo-server-lambda');
+import {success, failure} from "./libs/response-lib";
 
  const typeDefs = gql`
     type Query {
@@ -24,9 +25,14 @@
    });
 
  exports.graphqlHandler = server.createHandler({
-   cors: {
-     origin: "*",
-     credentials: true,
-   },
+  cors: {
+    origin: '*',
+    methods: 'POST',
+    allowHeaders: [
+      'Content-Type',
+      'Origin',
+      'Accept'
+    ]
+  },
  });
 
