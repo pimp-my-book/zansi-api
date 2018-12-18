@@ -24,15 +24,21 @@ import {success, failure} from "./libs/response-lib";
    }),
    });
 
- exports.graphqlHandler = server.createHandler({
-  cors: {
-    origin: '*',
-    methods: 'POST',
-    allowHeaders: [
-      'Content-Type',
-      'Origin',
-      'Accept'
-    ]
-  },
- });
+ exports.graphqlHandler = (event,context,callback) =>{
+  const handler = server.createHandler({
+    cors: {
+      origin: '*',
+      methods: [
+        'POST'
+      ], 
+      allowedHeaders: [
+        'Content-Type',
+        'Origin',
+        'Accept'
+      ]
+    },
+   }) ;
+
+   return handler(event, context,callback);
+ };
 
