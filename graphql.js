@@ -1,5 +1,8 @@
  const {ApolloServer, gql} = require('apollo-server-lambda');
 import {success, failure} from "./libs/response-lib";
+import express from "express";
+import serverless from 'serverless-http';
+import {ApolloServer,gql} from 'apollo-server-express';
 
  const typeDefs = gql`
     type Query {
@@ -13,6 +16,7 @@ import {success, failure} from "./libs/response-lib";
   },
  };
 
+ 
  const server = new ApolloServer({
    typeDefs,
    resolvers,
@@ -22,15 +26,16 @@ import {success, failure} from "./libs/response-lib";
       event,
       context,
    }),
+   playground: {
+     endpoint: '/graphql'
+   }
    });
 
  exports.graphqlHandler = (event,context,callback) =>{
   const handler = server.createHandler({
     cors: {
       origin: '*',
-      methods: [
-        'POST'
-      ], 
+      methods: 'POST',
       allowedHeaders: [
         'Content-Type',
         'Origin',
