@@ -31,6 +31,6 @@ functions:
     handler: graphql.graphqlHandler
     events:
       - http:
-          path: graphql
-          method: post 
+          path: "{proxy+}"
+          method: any 
           cors: true
