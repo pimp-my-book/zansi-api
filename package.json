@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "graphql": "^14.0.2",
+    "graphql-server-lambda": "^1.4.0",
     "source-map-support": "^0.4.18"
   }
 }

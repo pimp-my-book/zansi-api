@@ -18,6 +18,7 @@ provider:
   runtime: nodejs8.10
   stage: dev
   region: us-east-1
+  
   # To load environment variables externally
   # rename env.example to env.yml and uncomment
   # the following line. Also, make sure to not
@@ -27,8 +28,9 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.graphqlHandler
     events:
       - http:
           path: hello
-          method: get
+          method: post 
+          cors: true

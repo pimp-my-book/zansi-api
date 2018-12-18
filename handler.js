@@ -1,16 +1,32 @@
-export const hello = async (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Go Serverless v1.0! ${(await message({ time: 1, copy: 'Your function executed successfully!'}))}`,
-    }),
-  };
+ const {ApolloServer,gql} = require('apollo-server-lambda');
 
-  callback(null, response);
-};
+ const typeDefs = gql`
+    type Query{
+      hello: String
+    }
+ `
 
-const message = ({ time, ...rest }) => new Promise((resolve, reject) => 
-  setTimeout(() => {
-    resolve(`${rest.copy} (with a delay)`);
-  }, time * 1000)
-);
+ const resolvers = {
+  Query: {
+    hello: () => 'Zansi is Alive!!'
+  },
+ };
+
+ const server = new ApolloServer({
+   typeDefs,
+   resolvers,
+   context: ({event,context}) => ({
+      headers:event.headers,
+      fucntionName: context.functionName,
+      event,
+      context,
+   }),
+   });
+
+ exports.graphqlHandler = server.createHandler({
+   cors: {
+     origin: true,
+     credentials: true,
+   },
+ });
+
