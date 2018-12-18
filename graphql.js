@@ -20,11 +20,13 @@ import {ApolloServer,gql} from 'apollo-server-express';
  const server = new ApolloServer({
    typeDefs,
    resolvers,
-   path: '/graphql'
+   path: '/graphql',
  });
 
  server.applyMiddleware({app});
  export const graphql = serverless(app);
+
+ 
 
  /*
  const server = new ApolloServer({
