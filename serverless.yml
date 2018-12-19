@@ -66,4 +66,5 @@ iamRoleStatements:
 resources:
   #DynamoDB
   - ${file(resources/dyanmodb-table.yml)}
-
+  #Cognito
+  - ${file(resources/cognito-user-pool.yml)}
