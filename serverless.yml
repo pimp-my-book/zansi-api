@@ -5,6 +5,7 @@ service: zansi-api
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-export-env
 
 # serverless-webpack configuration
 # Enable auto-packing of external modules
@@ -65,7 +66,7 @@ iamRoleStatements:
 
 resources:
   #DynamoDB
-  - ${file(resources/dyanmodb-table.yml)}
+  - ${file(resources/dynamodb-table.yml)}
   #Cognito
   - ${file(resources/cognito-user-pool.yml)}
   - ${file(resources/cognito-identity-pool.yml)}
