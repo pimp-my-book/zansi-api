@@ -30,7 +30,7 @@ const schema = new GraphQLSchema({
 })
 
 module.exports.query = (event, context,callback,query) => 
- graphql(schema, event.query, null, {})
+ graphql(schema, event.queryStringParameters.query, null, {})
  .then(
    result => callback(null, {statusCode:200,body: JSON.stringify(result)}),
    err => callback(err)
