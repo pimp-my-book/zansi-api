@@ -27,10 +27,10 @@ provider:
   #environment: ${file(env.yml):${self:provider.stage}}
 
 functions:
-  graphql:
+  query:
     handler: graphql.query
     events:
       - http:
-          path: graphql
+          path: query
           method: get 
           cors: true
