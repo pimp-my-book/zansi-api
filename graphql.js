@@ -9,7 +9,7 @@ import {success, failure} from "./libs/response-lib";
 
  const resolvers = {
   Query: {
-    hello: () => 'Zansi is Alive!!'
+    hello: () => 'The API is Alive!!'
   },
  };
 

@@ -33,9 +33,11 @@ functions:
     events:
     - http:
         path: graphql
-        method: post
+        method: POST 
         cors: true
+        integration: lambda-proxy
     - http:
         path: graphql
-        method: get
+        method: GET
         cors: true
+        integration: lambda-proxy
