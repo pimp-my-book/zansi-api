@@ -1,6 +1,7 @@
 # NOTE: update this with your service name
 service: zansi-api
 
+frameworkVersion: ">=1.21.0 <2.0.0"
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
   - serverless-webpack
@@ -15,7 +16,7 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs6.10
   stage: dev
   region: us-east-1
   
@@ -30,7 +31,11 @@ functions:
   graphql:
     handler: graphql.graphqlHandler
     events:
-      - http:
-          path: graphql
-          method: post 
-          cors: true
+    - http:
+        path: graphql
+        method: post
+        cors: true
+    - http:
+        path: graphql
+        method: get
+        cors: true

@@ -16,12 +16,21 @@ import {success, failure} from "./libs/response-lib";
  const server = new ApolloServer({
    typeDefs,
    resolvers,
+   formatError: error => {
+     console.log(error);
+     return error;
+   },
+   formatResponse: response => {
+     console.log(response);
+     return response;
+   },
    context: ({event,context}) => ({
       headers: event.headers,
       functionName: context.functionName,
       event,
       context,
    }),
+   tracing: true
    });
 
  exports.graphqlHandler = (event,context,callback) =>{
@@ -29,7 +38,8 @@ import {success, failure} from "./libs/response-lib";
     cors: {
       origin: '*',
       methods: [
-        'POST'
+        'POST',
+        'GET'
       ], 
       allowedHeaders: [
         'Content-Type',
