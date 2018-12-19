@@ -1,4 +1,4 @@
-esources:
+Resources:
   # The federated identity for our user pool to auth with
   CognitoIdentityPool:
     Type: AWS::Cognito::IdentityPool
