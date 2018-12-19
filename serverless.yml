@@ -9,6 +9,16 @@ plugins:
 # serverless-webpack configuration
 # Enable auto-packing of external modules
 custom:
+
+  stage: ${opt:stage, self:provider.stage}
+  #This will create two seperate tables for the different envs
+  tableName: ${self:custom.stage}-notes
+  #sets the read/write capacity
+  tableThroughputs:
+    prod:5
+    default:1
+  #this tells serverless to create the various throughputs for the two stages
+  tableThroughput: ${self:custom.tableThroughputs.${self:custom.stage}, self:custom.tableThroughputs.default}
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
@@ -34,3 +44,7 @@ functions:
           path: hello
           method: get 
           
+resources:
+  #DynamoDB
+  - ${file(resources/dyanmodb-table.yml)}
+
