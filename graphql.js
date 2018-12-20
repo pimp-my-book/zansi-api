@@ -1,44 +1,32 @@
- const {ApolloServer, gql} = require('apollo-server-lambda');
-import {success, failure} from "./libs/response-lib";
+import express from "express";
+import serverless from "serverless-http";
+import graphiql from "graphql-playground-middleware-express";
+import { ApolloServer, gql } from "apollo-server-express";
 
- const typeDefs = gql`
-    type Query {
-      hello: String
-    }
- `;
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
 
- const resolvers = {
+const resolvers = {
   Query: {
-    hello: () => 'Zansi is Alive!!'
-  },
- };
+    hello: () => "world"
+  }
+};
 
- const server = new ApolloServer({
-   typeDefs,
-   resolvers,
-   context: ({event,context}) => ({
-      headers: event.headers,
-      functionName: context.functionName,
-      event,
-      context,
-   }),
-   });
+const app = express();
 
- exports.graphqlHandler = (event,context,callback) =>{
-  const handler = server.createHandler({
-    cors: {
-      origin: '*',
-      methods: [
-        'POST'
-      ], 
-      allowedHeaders: [
-        'Content-Type',
-        'Origin',
-        'Accept'
-      ]
-    },
-   }) ;
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  path: "/graphql"
+});
 
-   return handler(event, context,callback);
- };
+server.applyMiddleware({ app });
 
+app.get("/playground", graphiql({ endpoint: "/graphql" }));
+
+const handler = serverless(app);
+
+export { handler };
