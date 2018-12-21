@@ -29,8 +29,11 @@ provider:
 functions:
   query:
     handler: graphql.query
+    environment:
+      SLS_DEBUG: true
     events:
       - http:
           path: query
           method: get 
           cors: true
+
