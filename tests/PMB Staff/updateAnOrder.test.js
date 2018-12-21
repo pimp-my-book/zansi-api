@@ -1,5 +1,5 @@
 
-describe("PMB Staff can update and add order information", () => {
+describe.skip("PMB Staff can update and add order information", () => {
 
 
     test("returns a 200 respone", async () => {

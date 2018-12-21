@@ -1,5 +1,5 @@
 
-describe("Export all orders to an Excel Spreadsheet", () => {
+describe.skip("Export all orders to an Excel Spreadsheet", () => {
 
 
     test("returns a 200 respone", async () => {

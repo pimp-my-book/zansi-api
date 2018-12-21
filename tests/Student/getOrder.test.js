@@ -1,5 +1,5 @@
 
-describe("Student can retrieve an Order", () => {
+describe.skip("Student can retrieve an Order", () => {
 
 
     test("returns a 200 response", async () => {

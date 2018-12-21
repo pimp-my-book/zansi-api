@@ -1,5 +1,5 @@
 
-describe("PMB Allowed to search order table", () => {
+describe.skip("PMB Allowed to search order table", () => {
 
 
     test("returns a 200 respone", async () => {
