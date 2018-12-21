@@ -54,12 +54,13 @@ provider:
 
 
 functions:
-  hello:
-    handler: handler.hello
+  graphql:
+    handler: graphql.graphqlHandler
     events:
       - http:
-          path: hello
-          method: get 
+          path: graphql
+          method: post 
+          cors: true
 
 resources:
   #DynamoDB
