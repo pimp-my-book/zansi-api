@@ -58,12 +58,12 @@ functions:
     handler: graphql.graphqlHandler
     events:
       - http:
-          path: graphql
+          path: ${self:provider.stage}/graphql
           method: post 
           cors: true
           authorizer: aws_iam
       - http:
-          path: graphql
+          path: ${self:provider.stage}/graphql
           method: get 
           authorizer: aws_iam
 
