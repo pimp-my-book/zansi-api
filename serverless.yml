@@ -61,11 +61,15 @@ functions:
           path: ${self:provider.stage}/graphql
           method: post 
           cors: true
+          integration: lambda-proxy
           
+
       - http:
           path: ${self:provider.stage}/graphql
           method: get 
           cors: true
+          integration: lambda-proxy
+          
 
 
 resources:
