@@ -61,11 +61,11 @@ functions:
           path: ${self:provider.stage}/graphql
           method: post 
           cors: true
-          authorizer: aws_iam
+          
       - http:
           path: ${self:provider.stage}/graphql
           method: get 
-          authorizer: aws_iam
+          cors: true
 
 
 resources:
