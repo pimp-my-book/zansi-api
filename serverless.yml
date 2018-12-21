@@ -56,16 +56,18 @@ provider:
 functions:
   graphql:
     handler: graphql.graphqlHandler
+    environment:
+      SLS_DEBUG: true
     events:
       - http:
-          path: ${self:provider.stage}/graphql
+          path: graphql
           method: post 
           cors: true
           integration: lambda-proxy
           
 
       - http:
-          path: ${self:provider.stage}/graphql
+          path: graphql
           method: get 
           cors: true
           integration: lambda-proxy
