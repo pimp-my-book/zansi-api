@@ -55,7 +55,7 @@ provider:
 
 functions:
   graphql:
-    handler: graphql.graphqlHandler
+    handler: src/graphql.graphqlHandler
     environment:
       SLS_DEBUG: true
     events:
