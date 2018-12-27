@@ -1,20 +1,11 @@
-const {ApolloServer, gql} = require("apollo-server-lambda");
+import  {ApolloServer, gql} from "apollo-server-lambda";
+import {schema} from "./schema";
+import {resolvers} from "./resolvers";
 
-const typeDefs = gql`
-    type Query {
-      hello: String
-    }
- `;
-
-const resolvers = {
-	Query: {
-		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚"
-	},
-};
 
 const server = new ApolloServer({
-	typeDefs,
-	resolvers,
+	typeDefs: schema,
+	resolvers: resolvers,
 	formatError: error => {
 		console.log(error);
 		return error;
