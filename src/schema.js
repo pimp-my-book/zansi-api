@@ -3,7 +3,7 @@ const schema = `
    scalar Date
 
    type Student {
-     id: Int!
+     id: String!
      studentNumber: Int!
      name: String!
      email: String!
@@ -66,6 +66,7 @@ const schema = `
      deliveryMethod: [DeliveryType]
      deliveryDate: Date
      leadTime: String
+     student: [Student]
    }
 
    type OrderList {
@@ -81,6 +82,7 @@ const schema = `
     }
 
     type Mutation {
+      studentDetails(id: String!,studentNumber: Int!,name: String!,email: String!,univeristy: String!,degree: String!,currentYear: Int!,bursary: String!,cellNumber: Int!,address: String!): Student
       placeOrder(ISBN: Int!,title: String!,edition: String!,author:String!): Order
       cancelOrder(id:ID!):Order
       updateOrderStatus(id:ID!,status:String,email:String):Order

@@ -35,6 +35,9 @@ provider:
   environment:
     tableName:
       Ref: OrdersTable
+    tableName2:
+      Ref: StudentsTable
+      
     
   
   iamRoleStatements:
@@ -50,6 +53,7 @@ provider:
 
       Resource:
         - "Fn::GetAtt": [OrdersTable, Arn]
+        - "Fn::GetAtt": [StudentsTable, Arn]
 
 
 
@@ -64,6 +68,8 @@ functions:
           method: post 
           cors: true
           integration: lambda-proxy
+          authorizer: aws_iam
+
           
 
       - http:
@@ -71,6 +77,8 @@ functions:
           method: get 
           cors: true
           integration: lambda-proxy
+          authorizer: aws_iam
+
           
 
 
