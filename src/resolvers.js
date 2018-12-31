@@ -1,12 +1,12 @@
 import * as dynamoDBLib from "../libs/dynamodb-lib";
 import uuid from "uuid";
 
-const TableName = process.env.StudentsTable;
+//const TableName = process.env.tableName;
 
 const data = {
 	  studentDetails(_,args,context){
 		const params = {
-			TableName,
+			TableName: process.env.tableName,
 			Item: {
 				id: args.id,
 				studentNumber: args.studentNumber,
