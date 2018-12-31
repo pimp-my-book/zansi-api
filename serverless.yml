@@ -71,7 +71,6 @@ functions:
           method: post 
           cors: true
           integration: lambda-proxy
-          authorizer: aws_iam
 
           
 
@@ -80,7 +79,6 @@ functions:
           method: get 
           cors: true
           integration: lambda-proxy
-          authorizer: aws_iam
 
           
 
