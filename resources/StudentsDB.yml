@@ -2,7 +2,7 @@ Resources:
  StudentsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self.custom.stage}-students
+      TableName: ${self:custom.stage}-students
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S

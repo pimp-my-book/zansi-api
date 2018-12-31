@@ -2,7 +2,7 @@ Resources:
   OrdersTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self.custom.stage}-orders
+      TableName: ${self:custom.stage}-orders
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
