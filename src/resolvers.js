@@ -1,17 +1,17 @@
 import * as dynamoDBLib from "../libs/dynamodb-lib";
 import uuid from "uuid";
 
-//const TableName = process.env.tableName;
+const TableName = process.env.tableName;
 
 const data = {
-	  studentDetails(_,args,context){
+	  studentDetails(args,context){
 		const params = {
-			TableName: process.env.tableName,
+			TableName,
 			Item: {
 				id: args.id,
 				studentNumber: args.studentNumber,
 				name: args.name,
-				email: args.name,
+				email: args.email,
 				university: args.university,
 				degree: args.degree,
 				currentYear: args.currentYear,
@@ -22,6 +22,8 @@ const data = {
 			}
 
 		}
+
+		console.log(args);
 
 		return dynamoDBLib.call("put", params);
 	}

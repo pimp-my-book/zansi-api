@@ -11,7 +11,7 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
 
-  tableName: ${self:custom.stage}-orders
+  #tableName: ${self:custom.stage}-orders
   tableThroughputs:
     prod: 5
     default: 1
@@ -34,12 +34,12 @@ provider:
   region: us-east-1
   
   environment:
-    #OrdersTable:
-     # Ref: OrdersDB
-    #StudentsTable:
-      #Ref: StudentsDB
-    tableName:
-      Ref: ${self:custom.tableName}
+    OrdersTable:
+      Ref: OrdersTable
+    StudentsTable:
+      Ref: StudentsTable
+    #tableName:
+      #Ref: ${self:custom.tableName}
       
     
   
@@ -56,7 +56,7 @@ provider:
 
       Resource:
         - "Fn::GetAtt": [OrdersTable, Arn]
-        #- "Fn::GetAtt": [StudentsTable, Arn]
+        - "Fn::GetAtt": [StudentsTable, Arn]
 
 
 
@@ -71,7 +71,7 @@ functions:
           method: post 
           cors: true
           integration: lambda-proxy
-          #authorizer: aws_iam
+          authorizer: aws_iam
 
           
 
@@ -80,7 +80,7 @@ functions:
           method: get 
           cors: true
           integration: lambda-proxy
-          #authorizer: aws_iam
+          authorizer: aws_iam
 
           
 
@@ -90,9 +90,10 @@ resources:
   - ${file(resources/cognito-user-pool.yml)}
   - ${file(resources/cognito-identity-pool.yml)}
   #DynamoDB
-  - ${file(resources/dynamodb-table.yml)}
-#OrdersDB: ${file(resources/OrdersDB.yml)}
-#StudentsDB: ${file(resources/StudentsDB.yml)}
+  #- ${file(resources/dynamodb-table.yml)}
+  
+  - ${file(resources/OrdersDB.yml)}
+  - ${file(resources/StudentsDB.yml)}
 
 
 
