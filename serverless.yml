@@ -33,10 +33,10 @@ provider:
   region: us-east-1
   
   environment:
-    tableName:
-      Ref: OrdersTable
-    tableName2:
-      Ref: StudentsTable
+    OrdersTable:
+      Ref: OrdersDB
+    StudentsTable:
+      Ref: StudentsDB
       
     
   
@@ -83,11 +83,12 @@ functions:
 
 
 resources:
-  #DynamoDB
-  - ${file(resources/dynamodb-table.yml)}
   #Cognito
   - ${file(resources/cognito-user-pool.yml)}
   - ${file(resources/cognito-identity-pool.yml)}
+  #DynamoDB
+OrdersDB: ${file(resources/OrdersTable.yml)}
+StudentsDB: ${file(resources/StudentsTable.yml)}
 
 
 
