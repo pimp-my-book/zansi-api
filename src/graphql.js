@@ -18,7 +18,7 @@ const server = new ApolloServer({
 		headers: event.headers,
 		functionName: context.functionName, 
 		event,
-		context:event.requestContext.identity.cognitoIdentityId,
+		context,
 	}),
 	tracing: true,
 	playground: true
