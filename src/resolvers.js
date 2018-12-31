@@ -1,12 +1,12 @@
 import * as dynamoDBLib from "../libs/dynamodb-lib";
 import uuid from "uuid";
 
-const TableName = process.env.tableName;
-
+//const TableName = process.env.StudentsTable;
+/*
 const data = {
 	  studentDetails(args,context){
 		const params = {
-			TableName,
+			TableName: process.env.StudentsTable,
 			Item: {
 				id: args.id,
 				studentNumber: args.studentNumber,
@@ -24,16 +24,53 @@ const data = {
 		}
 
 		console.log(args);
-
+		console.log(params.TableName);
 		return dynamoDBLib.call("put", params);
 	}
 }
+*/
+
+const studentDetails = async (args) => {
+	const params = {
+		TableName: 'dev-students',
+		Item: {
+			id: args.id,
+			studentNumber: args.studentNumber,
+			name: args.name,
+			email: args.email,
+			university: args.university,
+			degree: args.degree,
+			currentYear: args.currentYear,
+			bursary: args.bursary,
+			cellNumber: args.cellNumber,
+			address: args.address
+
+		}
+
+	}
+
+	console.log(args);
+	console.log(params.TableName);
+	 await dynamoDBLib.call("put", params);
+
+	 return {id: args.id,
+		studentNumber: args.studentNumber,
+		name: args.name,
+		email: args.email,
+		university: args.university,
+		degree: args.degree,
+		currentYear: args.currentYear,
+		bursary: args.bursary,
+		cellNumber: args.cellNumber,
+		address: args.address};
+}
+
 
 export const resolvers = {
 	Query: {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚"
 	},
 	Mutation : {
-		studentDetails: (_, args,context) => data.studentDetails(args, context)
+		studentDetails: (root, args) => studentDetails(args)
 	},
 };
