@@ -30,7 +30,9 @@ const data = {
 }
 */
 
-const studentDetails = async (args) => {
+const studentDetails = async (args,context) => {
+
+	console.log(context.event);
 	const params = {
 		TableName: process.env.StudentsDB,
 		Item: {
@@ -70,6 +72,6 @@ export const resolvers = {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚"
 	},
 	Mutation : {
-		studentDetails: (root, args) => studentDetails(args)
+		studentDetails: (root, args,context) => studentDetails(args,context)
 	},
 };
