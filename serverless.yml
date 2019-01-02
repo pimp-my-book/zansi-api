@@ -12,8 +12,8 @@ custom:
   stage: ${opt:stage, self:provider.stage}
 
 
-  OrdersDB: ${self:custom.stage}-orders
-  StudentsDB: ${self:custom.stage}-students
+  OrdersDB: ${self:custom.stage}-order
+  StudentsDB: ${self:custom.stage}-student
   #tableName: ${self:custom.stage}-orders
   tableThroughputs:
     prod: 5
@@ -37,15 +37,9 @@ provider:
   region: us-east-1
   
   environment:
-    OrdersTable:
-      Ref: OrdersTable
-    StudentsTable:
-      Ref: StudentsTable
-    #tableName:
-      #Ref: ${self:custom.tableName}
-      
-    
-  
+    OrdersDB: ${self:custom.OrdersDB}
+    StudentsDB: ${self:custom.StudentsDB}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
