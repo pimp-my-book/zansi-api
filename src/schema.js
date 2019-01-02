@@ -9,7 +9,7 @@ const schema = `
      email: String!
      univeristy: String!
      degree: String!
-     currentYear: Int!
+     currentYear: String!
      bursary: String!
      cellNumber: Int!
      address: String!

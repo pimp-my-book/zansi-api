@@ -2,12 +2,12 @@ Resources:
  StudentsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.stage}-students
+      TableName: ${self:custom.StudentsDB}
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: userId
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: userId
           KeyType: HASH
       # Set the capacity based on the stage
       ProvisionedThroughput:
