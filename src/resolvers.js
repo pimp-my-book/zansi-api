@@ -49,8 +49,7 @@ const studentDetails = async (args) => {
 
 	}
 
-	console.log(args);
-	console.log(params.TableName);
+	
 	 await dynamoDBLib.call("put", params);
 
 	 return {id: args.id,

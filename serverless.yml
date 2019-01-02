@@ -11,6 +11,9 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
 
+
+  OrdersDB: ${self:custom.stage}-orders
+  StudentsDB: ${self:custom.stage}-students
   #tableName: ${self:custom.stage}-orders
   tableThroughputs:
     prod: 5
