@@ -10,9 +10,10 @@ plugins:
 # Enable auto-packing of external modules
 custom:
   stage: ${opt:stage, self:provider.stage}
-
-  defaultCognitoPool: ${self:custom.environment.UserPoolId}
+  region: ${opt:region, self:provider.region}
+  devCognitoPool: ${self:custom.environment.UserPoolId}
   prodCognitoPool: ${self:custom.environment.UserPoolId}
+  accountId: '298693910236'
   OrdersDB: ${self:custom.stage}-order
   StudentsDB: ${self:custom.stage}-student
   #tableName: ${self:custom.stage}-orders
@@ -69,8 +70,7 @@ functions:
           method: post 
           cors: true
           integration: lambda-proxy
-          authorizer:
-              arn: ${self:custom.${self:custom.stage}CognitoPool}
+          authorizer: aws_iam
           
 
       - http:
