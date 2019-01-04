@@ -24,11 +24,11 @@ const server = new ApolloServer({
 		console.log(response);
 		return response;
 	},
-	context: async ({event,context}) => ({
+	context:  ({event,context}) => ({
 		headers: event.headers,
 		functionName: context.functionName, 
 		event,
-		context: {claims: event.requestContext.authorizer.claims}
+		context: event.requestContext.authorizer.claims
 	}),
 	tracing: true,
 	playground: true

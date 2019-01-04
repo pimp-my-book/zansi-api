@@ -21,7 +21,8 @@ custom:
     prod: 5
     default: 1
   tableThroughput: ${self:custom.tableThroughputs.${self:custom.stage}, self:custom.tableThroughputs.default}
- 
+  serverless-offline:
+    port: 4000
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
@@ -70,8 +71,8 @@ functions:
           method: post 
           cors: true
           integration: lambda-proxy
-          authorizer: aws_iam
-          
+          authorizer: 
+              arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_kqavT3wHs
 
       - http:
           path: graphql

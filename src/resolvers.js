@@ -36,7 +36,7 @@ const studentDetails = async (args,context) => {
 	const params = {
 		TableName: process.env.StudentsDB,
 		Item: {
-			userId: context.claims.sub,
+			id: context.claims.sub,
 			studentNumber: args.studentNumber,
 			name: args.name,
 			email: args.email,
