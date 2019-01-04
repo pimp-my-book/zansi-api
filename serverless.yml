@@ -72,7 +72,7 @@ functions:
           cors: true
           integration: lambda-proxy
           authorizer: 
-              arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_kqavT3wHs
+              arn:aws:cognito-idp:${self:custom.region}:${self:custom.accountId}:userpool/${self:custom.${self:custom.stage}CognitoPool}
 
       - http:
           path: graphql
