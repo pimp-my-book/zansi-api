@@ -28,7 +28,7 @@ const server = new ApolloServer({
 		headers: event.headers,
 		functionName: context.functionName, 
 		event,
-		context: event.requestContext.authorizer.claims
+	    context
 	}),
 	tracing: true,
 	playground: true
@@ -49,6 +49,7 @@ exports.graphqlHandler = (event,context,callback) =>{
 				"Accept"
 			]
 		},
+		
 	}) ;
 
 
