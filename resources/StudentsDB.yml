@@ -1,18 +1,14 @@
 Resources:
-  OrdersTable:
+ StudentsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.tableName}
+      TableName: ${self:custom.StudentsDB}
       AttributeDefinitions:
         - AttributeName: userId
-          AttributeType: S
-        - AttributeName: orderId
           AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
-        - AttributeName: orderId
-          KeyType: RANGE
       # Set the capacity based on the stage
       ProvisionedThroughput:
         ReadCapacityUnits: ${self:custom.tableThroughput}

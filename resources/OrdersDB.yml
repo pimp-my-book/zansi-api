@@ -2,7 +2,7 @@ Resources:
   OrdersTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.tableName}
+      TableName: ${self:custom.OrdersDB}
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
@@ -17,3 +17,5 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: ${self:custom.tableThroughput}
         WriteCapacityUnits: ${self:custom.tableThroughput}
+
+ 

@@ -33,6 +33,7 @@
     "graphql": "^14.0.2",
     "graphql-server-lambda": "^1.4.0",
     "graphql-tools": "^4.0.3",
-    "source-map-support": "^0.4.18"
+    "source-map-support": "^0.4.18",
+    "uuid": "^3.3.2"
   }
 }

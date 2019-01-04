@@ -10,12 +10,19 @@ plugins:
 # Enable auto-packing of external modules
 custom:
   stage: ${opt:stage, self:provider.stage}
-
+  region: ${opt:region, self:provider.region}
+  devCognitoPool: ${self:custom.environment.UserPoolId}
+  prodCognitoPool: ${self:custom.environment.UserPoolId}
+  accountId: '298693910236'
+  OrdersDB: ${self:custom.stage}-order
+  StudentsDB: ${self:custom.stage}-student
+  #tableName: ${self:custom.stage}-orders
   tableThroughputs:
     prod: 5
     default: 1
   tableThroughput: ${self:custom.tableThroughputs.${self:custom.stage}, self:custom.tableThroughputs.default}
- 
+  serverless-offline:
+    port: 4000
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
@@ -33,9 +40,8 @@ provider:
   region: us-east-1
   
   environment:
-    tableName:
-      Ref: OrdersTable
-    
+    OrdersDB: ${self:custom.OrdersDB}
+    StudentsDB: ${self:custom.StudentsDB}
   
   iamRoleStatements:
     - Effect: Allow
@@ -50,6 +56,7 @@ provider:
 
       Resource:
         - "Fn::GetAtt": [OrdersTable, Arn]
+        - "Fn::GetAtt": [StudentsTable, Arn]
 
 
 
@@ -64,22 +71,27 @@ functions:
           method: post 
           cors: true
           integration: lambda-proxy
-          
+          authorizer: 
+              arn:aws:cognito-idp:${self:custom.region}:${self:custom.accountId}:userpool/${self:custom.${self:custom.stage}CognitoPool}
 
       - http:
           path: graphql
           method: get 
           cors: true
           integration: lambda-proxy
+
           
 
 
 resources:
-  #DynamoDB
-  - ${file(resources/dynamodb-table.yml)}
   #Cognito
   - ${file(resources/cognito-user-pool.yml)}
   - ${file(resources/cognito-identity-pool.yml)}
+  #DynamoDB
+  #- ${file(resources/dynamodb-table.yml)}
+  
+  - ${file(resources/OrdersDB.yml)}
+  - ${file(resources/StudentsDB.yml)}
 
 
 

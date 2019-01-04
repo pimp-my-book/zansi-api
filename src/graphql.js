@@ -3,6 +3,16 @@ import {schema} from "./schema";
 import {resolvers} from "./resolvers";
 
 
+/*const getUser = async ({requestContext: {authorizer}}) => {
+
+	let sub
+	if (event.requestContext.authorizer.claims === undefined){
+		sub = "df55baa1-bbb9-4db2-8525-675ece0f6a60";
+	} else {
+		claims = event.requestContext.authorizer.claims;
+	}
+}*/
+
 const server = new ApolloServer({
 	typeDefs: schema,
 	resolvers: resolvers,
@@ -14,11 +24,11 @@ const server = new ApolloServer({
 		console.log(response);
 		return response;
 	},
-	context: ({event,context}) => ({
+	context:  ({event,context}) => ({
 		headers: event.headers,
-		functionName: context.functionName,
+		functionName: context.functionName, 
 		event,
-		context,
+	    context
 	}),
 	tracing: true,
 	playground: true
@@ -39,7 +49,9 @@ exports.graphqlHandler = (event,context,callback) =>{
 				"Accept"
 			]
 		},
+		
 	}) ;
+
 
 	return handler(event, context,callback);
 };
