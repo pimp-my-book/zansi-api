@@ -71,8 +71,8 @@ functions:
           method: post 
           cors: true
           integration: lambda-proxy
-          authorizer: 
-              arn:aws:cognito-idp:${self:custom.region}:${self:custom.accountId}:userpool/${self:custom.${self:custom.stage}CognitoPool}
+          authorizer: aws_iam
+              #arn:aws:cognito-idp:${self:custom.region}:${self:custom.accountId}:userpool/${self:custom.${self:custom.stage}CognitoPool}
 
       - http:
           path: graphql
