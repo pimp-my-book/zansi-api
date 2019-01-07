@@ -43,15 +43,15 @@ const placeOrder = async (args, context) => {
 		TableName: process.env.OrdersDB,
 		Item : {
 			orderId: uuid.v1(), 
-			userId: "1234",
-			studentNumber: 14523,
-			name: "Thambo Thomas",
-			email: "thambo@gmail.com",
-			univeristy: "UCT",
-			degree: "bcom",
-			bursary: "Life",
-			cellNumber: "025483694",
-			address: "13 internet close",
+			userId: context.event.requestContext.authorizer.claims.sub,
+			studentNumber: context.event.requestContext.authorizer.claims.userAttributes['cognito:studentNumber'],
+			name:  context.event.requestContext.authorizer.claims.userAttributes['cognito:FullName'],
+			email:  context.event.requestContext.authorizer.claims.email,
+			univeristy:  context.event.requestContext.authorizer.claims.userAttributes['cognito:univeristy'],
+			degree:  context.event.requestContext.authorizer.claims.userAttributes['cognito:degree'],
+			bursary:  context.event.requestContext.authorizer.claims.userAttributes['cognito:bursary'],
+			cellNumber:  context.event.requestContext.authorizer.claims.userAttributes['cognito:cellNumber'],
+			address:  context.event.requestContext.authorizer.claims.userAttributes['cognito:address'],
 	   
 			ISBN: args.ISBN,
 			title: args.title,
@@ -65,10 +65,10 @@ const placeOrder = async (args, context) => {
 	await dynamoDBLib.call("put", params);
 
 	return {
-		orderId: uuid.v1(),
+		orderId: args.orderId,
 		userId: args.userId,
 		studentNumber:args.studentNumber,
-		name: "Thambo Thomas",
+		name: args.name,
 		email:args.email,
 		univeristy:args.univeristy,
 		degree:args.degree,
@@ -81,7 +81,7 @@ const placeOrder = async (args, context) => {
 		edition: args.edition,
 		author:  args.author,
 		dateOrdered: Date.now(),
-		status: "received"
+		status: args.status
 	}
 }
 
