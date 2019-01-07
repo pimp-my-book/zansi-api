@@ -54,7 +54,7 @@ const schema = `
    type Order {
      orderId: String!
      userId: String!
-     studentNumber: Int
+     studentNumber: String
      name: String
      email: String
      univeristy: String
@@ -63,7 +63,7 @@ const schema = `
      cellNumber: String
      address: String
 
-     ISBN: Int!
+     ISBN: String!
      title: String!
      edition: String!
      author:  String!
