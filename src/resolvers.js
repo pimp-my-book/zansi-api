@@ -42,45 +42,47 @@ const placeOrder = async (args, context) => {
 	const params = {
 		TableName: process.env.OrdersDB,
 		Item : {
-			id: uuid.v1(), 
-			userID: args.userID,
-			studentNumber: args.studentNumber,
-			name: args.name,
-			email: args.email,
-			univeristy: args.univeristy,
-			degree: args.degree,
-			bursary: args.bursary,
-			cellNumber: args.cellNumber,
-			address: args.address,
+			orderId: uuid.v1(), 
+			userId: "1234",
+			studentNumber: 14523,
+			name: "Thambo Thomas",
+			email: "thambo@gmail.com",
+			univeristy: "UCT",
+			degree: "bcom",
+			bursary: "Life",
+			cellNumber: "025483694",
+			address: "13 internet close",
 	   
 			ISBN: args.ISBN,
 			title: args.title,
 			edition: args.edition,
 			author:  args.author,
 			dateOrdered: Date.now(),
-			status: args.status
+			status: "received"
 		}
 	}
 
 	await dynamoDBLib.call("put", params);
 
 	return {
-		id: args.id,userID: args.userID,
-		studentNumber: args.studentNumber,
-		name: args.name,
-		email: args.email,
-		univeristy: args.univeristy,
-		degree: args.degree,
-		bursary: args.bursary,
-		cellNumber: args.cellNumber,
-		address: args.address,
+		orderId: uuid.v1(),
+		userId: args.userId,
+		studentNumber:args.studentNumber,
+		name: "Thambo Thomas",
+		email:args.email,
+		univeristy:args.univeristy,
+		degree:args.degree,
+		bursary:args.bursary,
+		cellNumber:args.cellNumber,
+		address:args.address,
    
 		ISBN: args.ISBN,
 		title: args.title,
 		edition: args.edition,
 		author:  args.author,
 		dateOrdered: Date.now(),
-		status: args.status}
+		status: "received"
+	}
 }
 
 export const resolvers = {

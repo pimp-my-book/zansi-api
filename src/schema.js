@@ -1,6 +1,6 @@
 const schema = `
 
-   scalar Date
+   
 
    type Student {
      id: String!
@@ -52,29 +52,29 @@ const schema = `
 
 
    type Order {
-     id: ID! 
-     userID: String!
+     orderId: String!
+     userId: String!
      studentNumber: Int
      name: String
      email: String
      univeristy: String
      degree: String
      bursary: String
-     cellNumber: Int
+     cellNumber: String
      address: String
 
      ISBN: Int!
      title: String!
      edition: String!
      author:  String!
-     dateOrdered: Date
-     status: String
-     statusDate: Date
+     dateOrdered: String!
+     status: String!
+     statusDate: String!
      ETA: String
      Vendor: [AllowedVendors]
      condition: [Conditions]
      deliveryMethod: [DeliveryType]
-     deliveryDate: Date
+     deliveryDate: String!
      leadTime: String
      student: [Student]
    }
@@ -96,7 +96,7 @@ const schema = `
       placeOrder(ISBN: Int!,title: String!,edition: String!,author:String!): Order
       cancelOrder(id:ID!):Order
       updateOrderStatus(id:ID!,status:String,email:String):Order
-      updateOrderInfo(id:ID!,ETA: String,Vendor: [AllowedVendors],condition: [Conditions],deliveryMethod: [DeliveryType], deliveryDate: Date): Order
+      updateOrderInfo(id:ID!,ETA: String,Vendor: [AllowedVendors],condition: [Conditions],deliveryMethod: [DeliveryType], deliveryDate: String!): Order
       exportToExcel(id:ID!):Order
     }
    
