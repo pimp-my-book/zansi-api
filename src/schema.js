@@ -53,6 +53,16 @@ const schema = `
 
    type Order {
      id: ID! 
+     userID: String!
+     studentNumber: Int
+     name: String
+     email: String
+     univeristy: String
+     degree: String
+     bursary: String
+     cellNumber: Int
+     address: String
+
      ISBN: Int!
      title: String!
      edition: String!
