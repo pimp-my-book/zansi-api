@@ -1,5 +1,7 @@
 # NOTE: update this with your service name
 service: zansi-api
+
+frameworkVersion: "1.35.1"
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
   - serverless-webpack
