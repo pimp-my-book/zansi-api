@@ -93,7 +93,7 @@ const schema = `
 
     type Mutation {
       studentDetails(studentNumber: Int!,name: String!,email: String!,univeristy: String!,degree: String!,currentYear: Int!,bursary: String!,cellNumber: Int!,address: String!): Student
-      placeOrder(ISBN: Int!,title: String!,edition: String!,author:String!): Order
+      placeOrder(ISBN: String!,title: String!,edition: String!,author:String!): Order
       cancelOrder(id:ID!):Order
       updateOrderStatus(id:ID!,status:String,email:String):Order
       updateOrderInfo(id:ID!,ETA: String,Vendor: [AllowedVendors],condition: [Conditions],deliveryMethod: [DeliveryType], deliveryDate: String!): Order
