@@ -65,7 +65,7 @@ const placeOrder = async (args, context) => {
 	await dynamoDBLib.call("put", params);
 
 	return {
-		orderId: args.orderId,
+		orderId: params.Item.orderId,
 		userId: args.userId,
 		studentNumber:args.studentNumber,
 		name: args.name,
