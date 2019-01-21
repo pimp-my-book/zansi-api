@@ -114,11 +114,10 @@ const exportToExcel = async (args, context) => {
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
-        //const json2csvParser = new Json2csvParser({fields});
-		//const csv = json2csvParser.parse(result.Items)
-		console.log(result.Items.map(x => x.email));
+
 		return result.Items
 		
+
 	}
 	catch(e){
 		return {message: `Export Unsuccessful ${e.message}`}
