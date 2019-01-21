@@ -83,6 +83,10 @@ const schema = `
      orders: [Order!]!
    }
 
+   type SuccessMessage {
+     message : String
+   }
+
 
     type Query {
       hello: String
@@ -97,7 +101,7 @@ const schema = `
       cancelOrder(id:ID!):Order
       updateOrderStatus(id:ID!,status:String,email:String):Order
       updateOrderInfo(id:ID!,ETA: String,Vendor: [AllowedVendors],condition: [Conditions],deliveryMethod: [DeliveryType], deliveryDate: String!): Order
-      exportToExcel(id:ID!):Order
+      exportToExcel: SuccessMessage
     }
    
  `;
