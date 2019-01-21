@@ -93,6 +93,7 @@ const schema = `
       studentOrder(id:ID!): Order
       viewOrder(id:ID!): Order
       orderList: OrderList!
+      exportToExcel: [Order]
     }
 
     type Mutation {
@@ -101,7 +102,7 @@ const schema = `
       cancelOrder(id:ID!):Order
       updateOrderStatus(id:ID!,status:String,email:String):Order
       updateOrderInfo(id:ID!,ETA: String,Vendor: [AllowedVendors],condition: [Conditions],deliveryMethod: [DeliveryType], deliveryDate: String!): Order
-      exportToExcel: SuccessMessage
+      
     }
    
  `;

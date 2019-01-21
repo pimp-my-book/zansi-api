@@ -114,10 +114,11 @@ const exportToExcel = async (args, context) => {
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
-        const json2csvParser = new Json2csvParser({fields});
-		const csv = json2csvParser.parse(result.Items)
-		console.log(csv);
-		return {message: "Export successfull", csv}
+        //const json2csvParser = new Json2csvParser({fields});
+		//const csv = json2csvParser.parse(result.Items)
+		console.log(result.Items.map(x => x.email));
+		return result.Items
+		
 	}
 	catch(e){
 		return {message: `Export Unsuccessful ${e.message}`}
@@ -126,11 +127,12 @@ const exportToExcel = async (args, context) => {
 }
 export const resolvers = {
 	Query: {
-		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚"
+		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚",
+		exportToExcel: (root, args, context) => exportToExcel(args,context)
+
 	},
 	Mutation : {
 		studentDetails: (root, args,context) => studentDetails(args,context),
 		placeOrder: (root,args,context) => placeOrder(args,context),
-		exportToExcel: (root, args, context) => exportToExcel(args,context)
 	},
 };
