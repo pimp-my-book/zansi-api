@@ -1,5 +1,6 @@
 import * as dynamoDBLib from "../libs/dynamodb-lib";
 import uuid from "uuid";
+const Json2csvParser = require('json2csv').Parser;
 
 
 const studentDetails = async (args,context) => {
@@ -85,12 +86,51 @@ const placeOrder = async (args, context) => {
 	}
 }
 
+
+const exportToExcel = async (args, context) => {
+	const params = {
+		TableName: process.env.OrdersDB
+	}
+
+    
+	const fields = [
+		"userId",
+		"orderId",
+		"ISBN",
+		"author",
+		"dateOrdered",
+		"edition",
+		"status",
+		"title",
+		"email",
+		"address",
+		"bursary",
+		"cellNumber",
+		"degree",
+		"name",
+		"studentNumber",
+		"univeristy",
+		]
+
+	try {
+		const result = await dynamoDBLib.call("scan",params);
+        const json2csvParser = new Json2csvParser({fields});
+		const csv = json2csvParser.parse(result.Items)
+		console.log(csv);
+		return {message: "Export successfull", csv}
+	}
+	catch(e){
+		return {message: `Export Unsuccessful ${e.message}`}
+	}
+
+}
 export const resolvers = {
 	Query: {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚"
 	},
 	Mutation : {
 		studentDetails: (root, args,context) => studentDetails(args,context),
-		placeOrder: (root,args,context) => placeOrder(args,context)
+		placeOrder: (root,args,context) => placeOrder(args,context),
+		exportToExcel: (root, args, context) => exportToExcel(args,context)
 	},
 };
