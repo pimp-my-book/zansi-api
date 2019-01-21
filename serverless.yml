@@ -64,7 +64,7 @@ provider:
 
 functions:
   graphql:
-    handler: src/graphql.graphqlHandler
+    handler: src/students/graphql.graphqlHandler
     environment:
       SLS_DEBUG: true
     events:
@@ -82,6 +82,26 @@ functions:
           method: get 
           cors: true
           integration: lambda-proxy
+
+  staff:
+    handler: src/staff/handler.graphqlHandler
+    environment: 
+      SLS_DEBUG: true
+    events:
+      - http: 
+          path: staff
+          method: post
+          cors: true
+          integration: lambda-proxy
+          authorizer: 
+              arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_kqavT3wHs
+
+      - http:
+          path: staff
+          method: get 
+          cors: true
+          integration: lambda-proxy
+   
 
           
 
