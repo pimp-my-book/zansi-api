@@ -1,4 +1,4 @@
-import * as dynamoDBLib from "./../libs/dynamodb-lib";
+import * as dynamoDBLib from "../../libs/dynamodb-lib";
 import uuid from "uuid";
 
 
