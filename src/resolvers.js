@@ -87,7 +87,7 @@ const placeOrder = async (args, context) => {
 }
 
 
-const exportToExcel = async (args, context) => {
+const orderList = async (args, context) => {
 	const params = {
 		TableName: process.env.OrdersDB
 	}
@@ -114,21 +114,19 @@ const exportToExcel = async (args, context) => {
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
-        //const json2csvParser = new Json2csvParser({fields});
-		//const csv = json2csvParser.parse(result.Items)
-		console.log(result.Items.map(x => x.email));
+        
 		return result.Items
 		
 	}
 	catch(e){
-		return {message: `Export Unsuccessful ${e.message}`}
+		return  e.message;
 	}
 
 }
 export const resolvers = {
 	Query: {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚",
-		exportToExcel: (root, args, context) => exportToExcel(args,context)
+		orderList: (root, args, context) => orderList(args,context)
 
 	},
 	Mutation : {

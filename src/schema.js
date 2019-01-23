@@ -79,10 +79,7 @@ const schema = `
      student: [Student]
    }
 
-   type OrderList {
-     orders: [Order!]!
-   }
-
+  
    type SuccessMessage {
      message : String
    }
@@ -92,8 +89,7 @@ const schema = `
       hello: String
       studentOrder(id:ID!): Order
       viewOrder(id:ID!): Order
-      orderList: OrderList!
-      exportToExcel: [Order]
+      orderList: [Order]
     }
 
     type Mutation {
