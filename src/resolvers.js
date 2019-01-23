@@ -3,42 +3,6 @@ import uuid from "uuid";
 const Json2csvParser = require('json2csv').Parser;
 
 
-const studentDetails = async (args,context) => {
-
-	console.log(context.event);
-	const params = {
-		TableName: process.env.StudentsDB,
-		Item: {
-			userId: context.event.requestContext.authorizer.claims.sub,
-			studentNumber: args.studentNumber,
-			name: args.name,
-			email: args.email,
-			university: args.university,
-			degree: args.degree,
-			currentYear: args.currentYear,
-			bursary: args.bursary,
-			cellNumber: args.cellNumber,
-			address: args.address
-
-		}
-
-	}
-
-	
-	 await dynamoDBLib.call("put", params);
-
-	 return {id: args.id,
-		studentNumber: args.studentNumber,
-		name: args.name,
-		email: args.email,
-		university: args.university,
-		degree: args.degree,
-		currentYear: args.currentYear,
-		bursary: args.bursary,
-		cellNumber: args.cellNumber,
-		address: args.address};
-}
-
 const placeOrder = async (args, context) => {
 	const params = {
 		TableName: process.env.OrdersDB,
@@ -87,30 +51,13 @@ const placeOrder = async (args, context) => {
 }
 
 
-const exportToExcel = async (args, context) => {
+const orderList = async (args, context) => {
 	const params = {
 		TableName: process.env.OrdersDB
 	}
 
     
-	const fields = [
-		"userId",
-		"orderId",
-		"ISBN",
-		"author",
-		"dateOrdered",
-		"edition",
-		"status",
-		"title",
-		"email",
-		"address",
-		"bursary",
-		"cellNumber",
-		"degree",
-		"name",
-		"studentNumber",
-		"univeristy",
-		]
+	
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
@@ -120,18 +67,62 @@ const exportToExcel = async (args, context) => {
 
 	}
 	catch(e){
-		return {message: `Export Unsuccessful ${e.message}`}
+		return  e.message;
 	}
 
 }
+
+
+const viewOrder = async (args, context) => {
+
+	const params = {
+		TableName: process.env.OrdersDB,
+        Key: {
+			userId: args.userId,
+            orderId: args.orderId
+		}
+	};
+
+	
+	try {
+		const result  = await dynamoDBLib.call("get",params);
+		if (result.Item){
+			return result.Item;
+		} else {
+			return "Order Not Found";
+		}
+	} catch(e){
+		return e;
+	}
+}
+
+const studentOrderList = async (args, context) => {
+   const params = {
+	TableName: process.env.OrdersDB,
+	KeyConditionExpression: "userId = :userId",
+	ExpressionAttributeValues: {
+		":userId": args.userId
+	}
+   };
+
+   console.log(params);
+   try {
+	   const result = await dynamoDBLib.call("query", params);
+	   console.log(result);  
+	   return result.Items;
+   } catch(e){
+	   return e;
+   }
+}
+
 export const resolvers = {
 	Query: {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚",
-		exportToExcel: (root, args, context) => exportToExcel(args,context)
-
+		orderList: (root, args, context) => orderList(args,context),
+		viewOrder: (root, args, context) => viewOrder(args, context),
+		studentOrderList: (root, args,context) => studentOrderList(args, context)
 	},
 	Mutation : {
-		studentDetails: (root, args,context) => studentDetails(args,context),
 		placeOrder: (root,args,context) => placeOrder(args,context),
 	},
 };
