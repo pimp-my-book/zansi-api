@@ -88,7 +88,7 @@ const schema = `
     type Query {
       hello: String
       studentOrder(id:ID!): Order
-      viewOrder(id:ID!): Order
+      viewOrder(orderId:String!,userId: String!): Order
       orderList: [Order]
     }
 

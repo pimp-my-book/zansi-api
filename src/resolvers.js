@@ -93,24 +93,7 @@ const orderList = async (args, context) => {
 	}
 
     
-	const fields = [
-		"userId",
-		"orderId",
-		"ISBN",
-		"author",
-		"dateOrdered",
-		"edition",
-		"status",
-		"title",
-		"email",
-		"address",
-		"bursary",
-		"cellNumber",
-		"degree",
-		"name",
-		"studentNumber",
-		"univeristy",
-		]
+	
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
@@ -123,11 +106,37 @@ const orderList = async (args, context) => {
 	}
 
 }
+
+
+const viewOrder = async (args, context) => {
+
+	const params = {
+		TableName: process.env.OrdersDB,
+        Key: {
+			userId: args.userId,
+            orderId: args.orderId
+		}
+	};
+
+	console.log(params);
+	try {
+		const result  = await dynamoDBLib.call("get",params);
+		if (result.Item){
+			return result.Item;
+		} else {
+			return "Order Not Found";
+		}
+	} catch(e){
+		return e;
+	}
+}
+
+
 export const resolvers = {
 	Query: {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚",
-		orderList: (root, args, context) => orderList(args,context)
-
+		orderList: (root, args, context) => orderList(args,context),
+		viewOrder: (root, args, context) => viewOrder(args, context)
 	},
 	Mutation : {
 		studentDetails: (root, args,context) => studentDetails(args,context),
