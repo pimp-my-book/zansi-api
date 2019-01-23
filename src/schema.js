@@ -26,7 +26,7 @@ type Order {
   deliveryMethod: [DeliveryType]
   deliveryDate: String!
   leadTime: String
-  student: [Student]
+  
 }
  
    enum AllowedVendors {
