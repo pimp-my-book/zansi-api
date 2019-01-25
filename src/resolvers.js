@@ -127,7 +127,7 @@ const studentOrderList = async (args, context) => {
 			});*/
 
 		 const history = studentOrders.Items.map(o => o);
-		 return history.toString();
+		 return console.log(Object.entries(history));
 	   
    } catch(e){
 	   return e;
