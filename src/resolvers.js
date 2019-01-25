@@ -8,25 +8,36 @@ const placeOrder = async (args, context) => {
 		TableName: process.env.OrdersDB,
 		Item : {
 			orderId: uuid.v1(), 
-			userId: context.event.requestContext.authorizer.claims.sub,
-			studentNumber: context.event.requestContext.authorizer.claims["custom:studentNumber"],
-			name:  context.event.requestContext.authorizer.claims["custom:FullName"],
-			email:  context.event.requestContext.authorizer.claims.email,
-			univeristy:  context.event.requestContext.authorizer.claims["custom:univeristy"],
-			degree:  context.event.requestContext.authorizer.claims["custom:degree"],
-			bursary:  context.event.requestContext.authorizer.claims["custom:bursary"],
-			cellNumber:  context.event.requestContext.authorizer.claims["custom:cellNumber"],
-			address:  context.event.requestContext.authorizer.claims["custom:address"],
+			userId: "test",//context.event.requestContext.authorizer.claims.sub,
+			studentNumber:"test", //context.event.requestContext.authorizer.claims["custom:studentNumber"],
+			name: "test", //context.event.requestContext.authorizer.claims["custom:FullName"],
+			email: "test", //context.event.requestContext.authorizer.claims.email,
+			univeristy: "test", //context.event.requestContext.authorizer.claims["custom:univeristy"],
+			degree: "test", //context.event.requestContext.authorizer.claims["custom:degree"],
+			bursary: "test", //context.event.requestContext.authorizer.claims["custom:bursary"],
+			cellNumber: "test", //context.event.requestContext.authorizer.claims["custom:cellNumber"],
+			address: "test", //context.event.requestContext.authorizer.claims["custom:address"],
 	   
 			ISBN: args.ISBN,
 			title: args.title,
 			edition: args.edition,
 			author:  args.author,
 			dateOrdered: Date.now(),
-			status: "received"
+			status: "received",
+
+			ETA: null,
+			bookCondition: null,
+			deliveryMethod: null,
+			Vendor: null,
+            deliveryDate: null,
+            costPrice: null,
+            sellingPrice: null,
+            wayBillNumber: null,
+            leadTime: null
 		}
 	}
 
+	console.log(params)
 	await dynamoDBLib.call("put", params);
 
 	return {
@@ -114,6 +125,39 @@ const studentOrderList = async (args, context) => {
    }
 }
 
+
+const updateOrderInfo = async (args, context) => {
+   const params = {
+	   TableName: process.env.OrdersDB,
+	   Key: {
+		   userId: args.userId,
+		   orderId: args.orderId
+	   },
+	   ExpressionAttributeValues: {
+		
+        ":ETA": args.ETA,
+        ":Vendor": args.Vendor,
+        ":bookCondition": args.bookCondition,
+        ":deliveryMethod": args.deliveryMethod,
+        ":deliveryDate": args.deliveryDate,
+        ":costPrice": args.costPrice,
+        ":sellingPrice": args.sellingPrice,
+        ":wayBillNumber": args.wayBillNumber,
+        ":leadTime": args.leadTime
+	   },
+	   UpdateExpression: 'SET  ETA = :ETA, Vendor = :Vendor,bookCondition = :bookCondition,deliveryMethod = :deliveryMethod,deliveryDate = :deliveryDate,costPrice = :costPrice,sellingPrice = :sellingPrice,wayBillNumber = :wayBillNumber,leadTime = :leadTime',
+	   ReturnValues: 'ALL_NEW' 
+   };
+
+   try {
+	const result = await dynamoDBLib.call("update", params);
+	console.log(result);
+	return result.Item;
+   } catch(e){
+	return e;
+   }
+}
+
 export const resolvers = {
 	Query: {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚",
@@ -123,5 +167,6 @@ export const resolvers = {
 	},
 	Mutation : {
 		placeOrder: (root,args,context) => placeOrder(args,context),
+		updateOrderInfo: (root, args, context) => updateOrderInfo(args,context),
 	},
 };

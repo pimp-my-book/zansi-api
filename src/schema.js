@@ -18,13 +18,17 @@ type Order {
   edition: String!
   author:  String!
   dateOrdered: String!
-  status: String!
-  statusDate: String!
+  status: String
+
+  statusDate: String
   ETA: String
-  Vendor: [AllowedVendors]
-  condition: [Conditions]
-  deliveryMethod: [DeliveryType]
-  deliveryDate: String!
+  Vendor: String
+  bookCondition: String
+  deliveryMethod: String
+  deliveryDate: String
+  costPrice: Float
+  sellingPrice: Float
+  wayBillNumber: String
   leadTime: String
   
 }
@@ -64,9 +68,6 @@ type Order {
    }
 
 
-
-
-  
    type SuccessMessage {
      message : String
    }
@@ -80,10 +81,38 @@ type Order {
     }
 
     type Mutation {
-      placeOrder(ISBN: String!,title: String!,edition: String!,author:String!): Order
+
+      placeOrder(ISBN: String!,
+        title: String!,
+        edition: String!,
+        author:String!,
+        statusDate: String,
+        ETA: String,
+        Vendor: String,
+        state: String,
+        deliveryMethod: String,
+        deliveryDate: String,
+        costPrice: Float,
+        sellingPrice: Float,
+        wayBillNumber: String,
+        leadTime: String): Order
+
       cancelOrder(id:ID!):Order
-      updateOrderStatus(id:ID!,status:String,email:String):Order
-      updateOrderInfo(id:ID!,ETA: String,Vendor: [AllowedVendors],condition: [Conditions],deliveryMethod: [DeliveryType], deliveryDate: String!): Order
+      updateOrderStatus(orderId:String!,userId: String!,status:String,email:String):Order
+      
+      updateOrderInfo(
+        orderId:String!,
+        userId: String!,
+        ETA: String,
+        Vendor: String,
+        bookCondition: String,
+        deliveryMethod: String,
+        deliveryDate: String,
+        costPrice: Float,
+        sellingPrice: Float,
+        wayBillNumber: String,
+        leadTime: String
+      ): Order
       
     }
    
