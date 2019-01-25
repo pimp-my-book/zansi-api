@@ -115,11 +115,20 @@ const studentOrderList = async (args, context) => {
 	}
    };
 
-   console.log(params);
+  
    try {
-	   const result = await dynamoDBLib.call("query", params);
-	   console.log(result);  
-	   return result.Items;
+	   const studentOrders = await dynamoDBLib.call("query", params);
+	   //console.log(studentOrders.Items);  
+
+	    /*const history = studentOrders.Items.map(element => {
+			return{
+				...element
+			}
+			});*/
+
+		 const history = studentOrders.Items.map(o => o);
+		 return history.toString();
+	   
    } catch(e){
 	   return e;
    }
@@ -163,7 +172,7 @@ export const resolvers = {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚",
 		orderList: (root, args, context) => orderList(args,context),
 		viewOrder: (root, args, context) => viewOrder(args, context),
-		studentOrderList: (root, args,context) => studentOrderList(args, context)
+		studentOrderList: (root, args,context) => studentOrderList(args, context),
 	},
 	Mutation : {
 		placeOrder: (root,args,context) => placeOrder(args,context),
