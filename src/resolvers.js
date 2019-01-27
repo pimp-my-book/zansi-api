@@ -22,7 +22,8 @@ const placeOrder = async (args, context) => {
 			title: args.title,
 			edition: args.edition,
 			author:  args.author,
-			dateOrdered: new Date().toLocaleString(),
+			excelDate: new Date().toLocaleString(),
+			dateOrdered: Date.now(),
 			status: "received"
 		}
 	}
@@ -45,7 +46,8 @@ const placeOrder = async (args, context) => {
 		title: args.title,
 		edition: args.edition,
 		author:  args.author,
-		dateOrdered: new Date().toLocaleString(),
+		excelDate: new Date().toLocaleString(),
+		dateOrdered: Date.now(),
 		status: args.status
 	}
 }
