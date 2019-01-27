@@ -18,7 +18,7 @@ type Order {
   edition: String!
   author:  String!
   dateOrdered: String!
-  excelDate: String!
+  excelDate: String
   status: String!
   statusDate: String!
   ETA: String
