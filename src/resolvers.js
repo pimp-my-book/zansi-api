@@ -107,10 +107,10 @@ const studentOrderList = async (args, context) => {
 	}
    };
 
-   console.log(params);
+  
    try {
 	   const result = await dynamoDBLib.call("query", params);
-	   console.log(result);  
+	  
 	   return result.Items;
    } catch(e){
 	   return e;
