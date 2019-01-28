@@ -19,7 +19,7 @@ type Order {
   author:  String!
   dateOrdered: String!
   excelDate: String
-  status: String!
+  status: String
   statusDate: String!
   ETA: String
   Vendor: [AllowedVendors]
