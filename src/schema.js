@@ -74,7 +74,7 @@ type Order {
 
     type Query {
       hello: String
-      studentOrderList(userId: String!): Order
+      studentOrderList(userId: String!): [Order]
       viewOrder(orderId:String!,userId: String!): Order
       orderList: [Order]
     }
