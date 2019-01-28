@@ -61,9 +61,10 @@ const orderList = async (args, context) => {
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
-        
+
 		return result.Items
 		
+
 	}
 	catch(e){
 		return  e.message;
