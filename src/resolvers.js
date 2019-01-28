@@ -103,7 +103,7 @@ const studentOrderList = async (args, context) => {
 	TableName: process.env.OrdersDB,
 	KeyConditionExpression: "userId = :userId",
 	ExpressionAttributeValues: {
-		":userId": args.userId
+		":userId": context.event.requestContext.authorizer.claims.sub
 	}
    };
 
