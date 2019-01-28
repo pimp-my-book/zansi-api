@@ -1,6 +1,7 @@
 import * as dynamoDBLib from "../libs/dynamodb-lib";
 import uuid from "uuid";
 const Json2csvParser = require('json2csv').Parser;
+const {transport, mailTemp} = require('./mail')
 
 
 const placeOrder = async (args, context) => {
@@ -24,7 +25,9 @@ const placeOrder = async (args, context) => {
 			author:  args.author,
 			dateOrdered: new Date().toLocaleString(),
 			status: "received",
-
+			orderStatus: "received",
+			excelDate: new Date().toLocaleString(),
+            statusDate: new Date().toLocaleString(),
 			ETA: null,
 			bookCondition: null,
 			deliveryMethod: null,
@@ -37,7 +40,7 @@ const placeOrder = async (args, context) => {
 		}
 	}
 
-	console.log(params)
+	
 	await dynamoDBLib.call("put", params);
 
 	return {
@@ -56,8 +59,11 @@ const placeOrder = async (args, context) => {
 		title: args.title,
 		edition: args.edition,
 		author:  args.author,
+		excelDate: new Date().toLocaleString(),
 		dateOrdered: new Date().toLocaleString(),
-		status: args.status
+		orderStatus: "received",
+		status: "received",
+		statusDate: new Date().toLocaleString(),
 	}
 }
 
@@ -124,10 +130,15 @@ const studentOrderList = async (args, context) => {
 			return{
 				...element
 			}
-			});*/
-
-		 const history = studentOrders.Items.map(o => o);
+			});
+			
+			
+			
+			 const history = studentOrders.Items.map(o => o);
 		 return console.log(Object.entries(history));
+			*/
+
+		 return studentOrders.Items
 	   
    } catch(e){
 	   return e;
@@ -167,6 +178,41 @@ const updateOrderInfo = async (args, context) => {
    }
 }
 
+const updateOrderStatus = async (args, context) => {
+	const params = {
+		TableName: process.env.OrdersDB,
+		Key: {
+			userId: args.userId,
+			orderId: args.orderId
+		},
+		ExpressionAttributeValues: {
+		
+			":orderStatus": args.orderStatus,
+			":statusDate": new Date().toLocaleString(),
+		   },
+		   UpdateExpression: 'SET  orderStatus = :orderStatus, statusDate = :statusDate',
+		   ReturnValues: 'ALL_NEW' 
+	}
+
+	try {
+		const result = await dynamoDBLib.call("update", params);
+
+		const mailRes = await transport.sendEmail({
+			from: 'u14284783@tuks.co.za',
+			to: args.email,
+			subject: `Your Order (${args.orderId}) Status Update`,
+			TextBody: mailTemp(` your order now has a status of : ${args.orderStatus}`)
+		}).then(response => {
+			console.log(response.message)
+		});
+
+		return result.Item;
+      
+	} catch (e){
+		return e;
+	}
+}
+
 export const resolvers = {
 	Query: {
 		hello: () => "Zansi is now live!🎈 Zansi is a Pimp My Book ordering service for university textbooks 📚",
@@ -177,5 +223,6 @@ export const resolvers = {
 	Mutation : {
 		placeOrder: (root,args,context) => placeOrder(args,context),
 		updateOrderInfo: (root, args, context) => updateOrderInfo(args,context),
+	    updateOrderStatus: (root, args, context) => updateOrderStatus(args, context)
 	},
 };

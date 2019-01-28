@@ -19,7 +19,8 @@ type Order {
   author:  String!
   dateOrdered: String!
   status: String
-
+  orderStatus: String
+  excelDate: String
   statusDate: String
   ETA: String
   Vendor: String
@@ -75,7 +76,7 @@ type Order {
 
     type Query {
       hello: String
-      studentOrderList(userId: String!): Order
+      studentOrderList(userId: String!): [Order]
       viewOrder(orderId:String!,userId: String!): Order
       orderList: [Order]
     }
@@ -98,7 +99,11 @@ type Order {
         leadTime: String): Order
 
       cancelOrder(id:ID!):Order
-      updateOrderStatus(orderId:String!,userId: String!,status:String,email:String):Order
+      updateOrderStatus(
+        orderId:String!,
+        userId: String!,
+        orderStatus: String
+        email:String):Order
       
       updateOrderInfo(
         orderId:String!,
