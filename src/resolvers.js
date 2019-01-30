@@ -124,19 +124,7 @@ const studentOrderList = async (args, context) => {
   
    try {
 	   const studentOrders = await dynamoDBLib.call("query", params);
-	   //console.log(studentOrders.Items);  
-
-	    /*const history = studentOrders.Items.map(element => {
-			return{
-				...element
-			}
-			});
-			
-			
-			
-			 const history = studentOrders.Items.map(o => o);
-		 return console.log(Object.entries(history));
-			*/
+	  
 
 		 return studentOrders.Items
 	   
@@ -171,7 +159,7 @@ const updateOrderInfo = async (args, context) => {
 
    try {
 	const result = await dynamoDBLib.call("update", params);
-	console.log(result);
+	
 	return result.Item;
    } catch(e){
 	return e;
@@ -188,7 +176,7 @@ const updateOrderStatus = async (args, context) => {
 		ExpressionAttributeValues: {
 		
 			":orderStatus": args.orderStatus,
-			":statusDate": new Date().toLocaleString(),
+			":statusDate":  Date.now(),
 		   },
 		   UpdateExpression: 'SET  orderStatus = :orderStatus, statusDate = :statusDate',
 		   ReturnValues: 'ALL_NEW' 

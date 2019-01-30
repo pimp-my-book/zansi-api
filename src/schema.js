@@ -51,22 +51,7 @@ type Order {
     OTHER
    }
 
-   enum Conditions {
-     NEW
-     USED
-   }
-
-   enum DeliveryType {
-    COURIER
-    PMBPAROW
-    PMPSTELLIES
-    PMBUCT
-    PMBHO
-    PMBPTA
-    PMBUFS
-    EMAIL
-    PMBDELIVERY 
-   }
+   
 
 
    type SuccessMessage {
@@ -99,6 +84,7 @@ type Order {
         leadTime: String): Order
 
       cancelOrder(id:ID!):Order
+
       updateOrderStatus(
         orderId:String!,
         userId: String!,
