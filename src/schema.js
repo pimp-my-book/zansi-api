@@ -102,7 +102,7 @@ type Order {
         costPrice: String,
         sellingPrice: String,
         wayBillNumber: String,
-        leadTime: String
+       
       ): Order
       
     }
