@@ -12,7 +12,7 @@ const placeOrder = async (args, context) => {
 			userId: "test",//context.event.requestContext.authorizer.claims.sub,
 			studentNumber:"test", //context.event.requestContext.authorizer.claims["custom:studentNumber"],
 			name: "test", //context.event.requestContext.authorizer.claims["custom:FullName"],
-			email: "test", //context.event.requestContext.authorizer.claims.email,
+			email: "amomoloko@gmail.com", //context.event.requestContext.authorizer.claims.email,
 			univeristy: "test", //context.event.requestContext.authorizer.claims["custom:univeristy"],
 			degree: "test", //context.event.requestContext.authorizer.claims["custom:degree"],
 			bursary: "test", //context.event.requestContext.authorizer.claims["custom:bursary"],
@@ -23,11 +23,11 @@ const placeOrder = async (args, context) => {
 			title: args.title,
 			edition: args.edition,
 			author:  args.author,
-			dateOrdered: new Date().toLocaleString(),
+			dateOrdered:  Date.now(),
 			status: "received",
-			orderStatus: "received",
+			orderStatus: "Received",
 			excelDate: new Date().toLocaleString(),
-            statusDate: new Date().toLocaleString(),
+            statusDate: Date.now(),
 			ETA: null,
 			bookCondition: null,
 			deliveryMethod: null,
@@ -40,8 +40,10 @@ const placeOrder = async (args, context) => {
 		}
 	}
 
-	
-	await dynamoDBLib.call("put", params);
+	try{
+
+
+		await dynamoDBLib.call("put", params);
 
 	return {
 		orderId: params.Item.orderId,
@@ -65,6 +67,20 @@ const placeOrder = async (args, context) => {
 		status: "received",
 		statusDate: new Date().toLocaleString(),
 	}
+
+		const mailRes = await transport.sendEmail({
+			from: "amo@pimpmybook.co.za",
+			to: args.email,
+			subject: `Your Order (${params.Item.orderId}) Confirmation`,
+			TextBody: mailTemp(` This is confirmation that you placed an order for ${args.title} ISBN: ${args.ISBN}`)
+		}).then(response => {
+			console.log(response.message)
+		});
+
+	} catch(e){
+          return e;
+	}
+	
 }
 
 

@@ -27,8 +27,8 @@ type Order {
   bookCondition: String
   deliveryMethod: String
   deliveryDate: String
-  costPrice: Float
-  sellingPrice: Float
+  costPrice: String
+  sellingPrice: String
   wayBillNumber: String
   leadTime: String
   
@@ -78,8 +78,8 @@ type Order {
         state: String,
         deliveryMethod: String,
         deliveryDate: String,
-        costPrice: Float,
-        sellingPrice: Float,
+        costPrice: String,
+        sellingPrice: String,
         wayBillNumber: String,
         leadTime: String): Order
 
@@ -99,8 +99,8 @@ type Order {
         bookCondition: String,
         deliveryMethod: String,
         deliveryDate: String,
-        costPrice: Float,
-        sellingPrice: Float,
+        costPrice: String,
+        sellingPrice: String,
         wayBillNumber: String,
         leadTime: String
       ): Order
