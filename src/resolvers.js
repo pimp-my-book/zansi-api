@@ -167,9 +167,9 @@ const updateOrderInfo = async (args, context) => {
         ":costPrice": args.costPrice,
         ":sellingPrice": args.sellingPrice,
         ":wayBillNumber": args.wayBillNumber,
-        
+        ":leadTime": args.leadTime
 	   },
-	   UpdateExpression: 'SET  ETA = :ETA, Vendor = :Vendor,bookCondition = :bookCondition,deliveryMethod = :deliveryMethod,deliveryDate = :deliveryDate,costPrice = :costPrice,sellingPrice = :sellingPrice,wayBillNumber = :wayBillNumber',
+	   UpdateExpression: 'SET  ETA = :ETA, Vendor = :Vendor,bookCondition = :bookCondition,deliveryMethod = :deliveryMethod,deliveryDate = :deliveryDate,costPrice = :costPrice,sellingPrice = :sellingPrice,wayBillNumber = :wayBillNumber,leadTime = :leadTime',
 	   ReturnValues: 'ALL_NEW' 
    };
 
