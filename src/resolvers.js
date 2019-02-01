@@ -9,15 +9,15 @@ const placeOrder = async (args, context) => {
 		TableName: process.env.OrdersDB,
 		Item : {
 			orderId: uuid.v1(), 
-			userId: "test",//context.event.requestContext.authorizer.claims.sub,
-			studentNumber:"test", //context.event.requestContext.authorizer.claims["custom:studentNumber"],
-			name: "test", //context.event.requestContext.authorizer.claims["custom:FullName"],
-			email: "amomoloko@gmail.com", //context.event.requestContext.authorizer.claims.email,
-			univeristy: "test", //context.event.requestContext.authorizer.claims["custom:univeristy"],
-			degree: "test", //context.event.requestContext.authorizer.claims["custom:degree"],
-			bursary: "test", //context.event.requestContext.authorizer.claims["custom:bursary"],
-			cellNumber: "test", //context.event.requestContext.authorizer.claims["custom:cellNumber"],
-			address: "test", //context.event.requestContext.authorizer.claims["custom:address"],
+			userId: context.event.requestContext.authorizer.claims.sub,
+			studentNumber: context.event.requestContext.authorizer.claims["custom:studentNumber"],
+			name: context.event.requestContext.authorizer.claims["custom:FullName"],
+			email: context.event.requestContext.authorizer.claims.email,
+			univeristy: context.event.requestContext.authorizer.claims["custom:univeristy"],
+			degree: context.event.requestContext.authorizer.claims["custom:degree"],
+			bursary:  context.event.requestContext.authorizer.claims["custom:bursary"],
+			cellNumber: context.event.requestContext.authorizer.claims["custom:cellNumber"],
+			address:  context.event.requestContext.authorizer.claims["custom:address"],
 	   
 			ISBN: args.ISBN,
 			title: args.title,
@@ -25,7 +25,7 @@ const placeOrder = async (args, context) => {
 			author:  args.author,
 			dateOrdered:  Date.now(),
 			status: "received",
-			orderStatus: "Received",
+			orderStatus: "received",
 			excelDate: new Date().toLocaleString(),
             statusDate: Date.now(),
 			ETA: null,
@@ -45,6 +45,17 @@ const placeOrder = async (args, context) => {
 
 		await dynamoDBLib.call("put", params);
 
+
+		const mailRes = await transport.sendEmail({
+			from: "amo@pimpmybook.co.za",
+			to: args.email,
+			subject: `Your Order (${params.Item.orderId}) Confirmation`,
+			TextBody: mailTemp(` This is confirmation that you placed an order for ${args.title} ISBN: ${args.ISBN}`)
+		}).then(response => {
+			console.log(response.message)
+		});
+
+		
 	return {
 		orderId: params.Item.orderId,
 		userId: args.userId,
@@ -68,14 +79,7 @@ const placeOrder = async (args, context) => {
 		statusDate: new Date().toLocaleString(),
 	}
 
-		const mailRes = await transport.sendEmail({
-			from: "amo@pimpmybook.co.za",
-			to: args.email,
-			subject: `Your Order (${params.Item.orderId}) Confirmation`,
-			TextBody: mailTemp(` This is confirmation that you placed an order for ${args.title} ISBN: ${args.ISBN}`)
-		}).then(response => {
-			console.log(response.message)
-		});
+		
 
 	} catch(e){
           return e;
@@ -202,7 +206,7 @@ const updateOrderStatus = async (args, context) => {
 		const result = await dynamoDBLib.call("update", params);
 
 		const mailRes = await transport.sendEmail({
-			from: 'u14284783@tuks.co.za',
+			from: 'amo@pimpmybook.co.za',
 			to: args.email,
 			subject: `Your Order (${args.orderId}) Status Update`,
 			TextBody: mailTemp(` your order now has a status of : ${args.orderStatus}`)
