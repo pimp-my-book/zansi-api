@@ -35,6 +35,7 @@
     "graphql-server-lambda": "^1.4.0",
     "graphql-tools": "^4.0.3",
     "json2csv": "^4.3.3",
+    "postmark": "^2.2.4",
     "source-map-support": "^0.4.18",
     "uuid": "^3.3.2"
   }
