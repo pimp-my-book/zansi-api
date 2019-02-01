@@ -23,6 +23,7 @@ const placeOrder = async (args, context) => {
 			title: args.title,
 			edition: args.edition,
 			author:  args.author,
+
 			dateOrdered:  Date.now(),
 			status: "received",
 			orderStatus: "received",
@@ -83,6 +84,7 @@ const placeOrder = async (args, context) => {
 
 	} catch(e){
           return e;
+
 	}
 	
 }
@@ -98,9 +100,10 @@ const orderList = async (args, context) => {
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
-        
+
 		return result.Items
 		
+
 	}
 	catch(e){
 		return  e.message;
@@ -137,7 +140,7 @@ const studentOrderList = async (args, context) => {
 	TableName: process.env.OrdersDB,
 	KeyConditionExpression: "userId = :userId",
 	ExpressionAttributeValues: {
-		":userId": args.userId
+		":userId": context.event.requestContext.authorizer.claims.sub
 	}
    };
 
@@ -148,6 +151,7 @@ const studentOrderList = async (args, context) => {
 
 		 return studentOrders.Items
 	   
+
    } catch(e){
 	   return e;
    }
