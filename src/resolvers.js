@@ -28,15 +28,15 @@ const placeOrder = async (args, context) => {
 			orderStatus: "received",
 			excelDate: new Date().toLocaleString(),
             statusDate: Date.now(),
-			ETA: null,
-			bookCondition: null,
-			deliveryMethod: null,
-			Vendor: null,
-            deliveryDate: null,
-            costPrice: null,
-            sellingPrice: null,
-            wayBillNumber: null,
-            leadTime: null
+			ETA: "00/00/000",
+			bookCondition: "TBA",
+			deliveryMethod: "TBA",
+			Vendor: "TBA",
+            deliveryDate: "00/00/000",
+            costPrice: "TBA",
+            sellingPrice: "TBA",
+            wayBillNumber: "TBA",
+            leadTime: "TBA"
 		}
 	}
 
@@ -55,7 +55,7 @@ const placeOrder = async (args, context) => {
 			console.log(response.message)
 		});
 
-		
+
 	return {
 		orderId: params.Item.orderId,
 		userId: args.userId,
