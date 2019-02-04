@@ -1,6 +1,6 @@
 const postmark = require("postmark");
 
-const transport = new postmark.ServerClient("2bf8257c-c345-4f43-b553-611a60c7b789");
+const transport = new postmark.ServerClient("31a65312-7d40-4f46-ba65-eaba1eb54b21");
 
 const mailTemp = text => `
 Hello there!
