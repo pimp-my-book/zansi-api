@@ -30,6 +30,7 @@ type Order {
   costPrice: String
   sellingPrice: String
   wayBillNumber: String
+  courierCost: String
   leadTime: String
   
 }
@@ -102,6 +103,7 @@ type Order {
         costPrice: String,
         sellingPrice: String,
         wayBillNumber: String,
+        courierCost: String,
         leadTime: String
       ): Order
       

@@ -37,7 +37,8 @@ const placeOrder = async (args, context) => {
             costPrice: "0",
             sellingPrice: "0",
             wayBillNumber: "TBA",
-            leadTime: "TBA"
+			leadTime: "TBA",
+			courierCost: "0"
 		}
 	}
 
@@ -175,9 +176,10 @@ const updateOrderInfo = async (args, context) => {
         ":costPrice": args.costPrice,
         ":sellingPrice": args.sellingPrice,
         ":wayBillNumber": args.wayBillNumber,
-        ":leadTime": args.leadTime
+		":leadTime": args.leadTime,
+		":courierCost": args.courierCost
 	   },
-	   UpdateExpression: 'SET  ETA = :ETA, Vendor = :Vendor,bookCondition = :bookCondition,deliveryMethod = :deliveryMethod,deliveryDate = :deliveryDate,costPrice = :costPrice,sellingPrice = :sellingPrice,wayBillNumber = :wayBillNumber,leadTime = :leadTime',
+	   UpdateExpression: 'SET  ETA = :ETA, Vendor = :Vendor,bookCondition = :bookCondition,deliveryMethod = :deliveryMethod,deliveryDate = :deliveryDate,costPrice = :costPrice,sellingPrice = :sellingPrice,wayBillNumber = :wayBillNumber,leadTime = :leadTime, courierCost = :courierCost',
 	   ReturnValues: 'ALL_NEW' 
    };
 
