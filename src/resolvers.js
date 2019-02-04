@@ -29,11 +29,11 @@ const placeOrder = async (args, context) => {
 			orderStatus: "received",
 			excelDate: new Date().toLocaleString(),
             statusDate: Date.now(),
-			ETA: "00/00/000",
+			ETA: "00/00/0000",
 			bookCondition: "TBA",
 			deliveryMethod: "TBA",
 			Vendor: "TBA",
-            deliveryDate: "00/00/000",
+            deliveryDate: "00/00/0000",
             costPrice: "TBA",
             sellingPrice: "TBA",
             wayBillNumber: "TBA",
@@ -49,7 +49,7 @@ const placeOrder = async (args, context) => {
 
 		const mailRes = await transport.sendEmail({
 			from: "amo@pimpmybook.co.za",
-			to: args.email,
+			to: params.Item.email,
 			subject: `Your Order (${params.Item.orderId}) Confirmation`,
 			TextBody: mailTemp(` This is confirmation that you placed an order for ${args.title} ISBN: ${args.ISBN}`)
 		}).then(response => {
