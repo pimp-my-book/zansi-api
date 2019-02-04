@@ -209,14 +209,22 @@ const updateOrderStatus = async (args, context) => {
 	try {
 		const result = await dynamoDBLib.call("update", params);
 
-		const mailRes = await transport.sendEmail({
-			from: 'amo@pimpmybook.co.za',
-			to: args.email,
-			subject: `Your Order (${args.orderId}) Status Update`,
-			TextBody: mailTemp(` your order now has a status of : ${args.orderStatus}`)
-		}).then(response => {
-			console.log(response.message)
-		});
+
+
+		if (args.status === "Picked" || args.status === "Courier Booked" || args.status === "Transfer Received"){
+			return null;
+		} else {
+			const mailRes = await transport.sendEmail({
+				from: 'amo@pimpmybook.co.za',
+				to: args.email,
+				subject: `Your Order (${args.orderId}) Status Update`,
+				TextBody: mailTemp(` your order now has a status of : ${args.orderStatus}`)
+			}).then(response => {
+				console.log(response.message)
+			});
+
+		}
+		
 
 		return result.Item;
       
