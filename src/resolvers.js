@@ -29,13 +29,13 @@ const placeOrder = async (args, context) => {
 			orderStatus: "received",
 			excelDate: new Date().toLocaleString(),
             statusDate: Date.now(),
-			ETA: "00/00/0000",
+			ETA: "01/01/0001",
 			bookCondition: "TBA",
 			deliveryMethod: "TBA",
 			Vendor: "TBA",
-            deliveryDate: "00/00/0000",
-            costPrice: "TBA",
-            sellingPrice: "TBA",
+            deliveryDate: "01/01/0001",
+            costPrice: "0",
+            sellingPrice: "0",
             wayBillNumber: "TBA",
             leadTime: "TBA"
 		}
