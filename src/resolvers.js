@@ -49,7 +49,7 @@ const placeOrder = async (args, context) => {
 
 
 		const mailRes = await transport.sendEmail({
-			from: "amo@pimpmybook.co.za",
+			from: "noreply@pimpmybook.co.za",
 			to: params.Item.email,
 			subject: `Your Order (${params.Item.orderId}) Confirmation`,
 			TextBody: mailTemp(` This is confirmation that you placed an order for ${args.title} ISBN: ${args.ISBN}`)
@@ -212,17 +212,19 @@ const updateOrderStatus = async (args, context) => {
 		const result = await dynamoDBLib.call("update", params);
 
 		
-		if (args.orderStatus === "Picked" || args.orderStatus === "Courier Booked" || args.orderStatus === "Transfer Received"){
-			return null;
-		} else {
+		if (args.orderStatus === "Ready for collection" || args.orderStatus === "Delivered to Beneficiary" || args.orderStatus === "Beneficiary Collected"){
+			
+
 			const mailRes = await transport.sendEmail({
-				from: 'amo@pimpmybook.co.za',
+				from: 'noreply@pimpmybook.co.za',
 				to: args.email,
 				subject: `Your Order (${args.orderId}) Status Update`,
 				TextBody: mailTemp(` Your order now has a status of : ${args.orderStatus}`)
 			}).then(response => {
 				console.log(response.message)
 			});
+		} else {
+			return null;
 
 		}
 
