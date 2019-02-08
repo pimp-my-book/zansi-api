@@ -93,7 +93,8 @@ const placeOrder = async (args, context) => {
 
 const orderList = async (args, context) => {
 	const params = {
-		TableName: process.env.OrdersDB
+		TableName: process.env.OrdersDB,
+		
 	}
 
     
@@ -101,9 +102,9 @@ const orderList = async (args, context) => {
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
-
-		return result.Items
-		
+			
+		 return result.Items
+			
 
 	}
 	catch(e){
