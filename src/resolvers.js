@@ -94,7 +94,6 @@ const placeOrder = async (args, context) => {
 const orderList = async (args, context) => {
 	const params = {
 		TableName: process.env.OrdersDB,
-		Limit: 10
 		
 	}
 
@@ -103,19 +102,9 @@ const orderList = async (args, context) => {
 
 	try {
 		const result = await dynamoDBLib.call("scan",params);
-		console.log(result.hasNextPage());
-		if (result.hasNextPage()){
 			
-		 return result.nextPage()
+		 return result.Items
 			
-		
-		} else {
-			return "error";
-
-		}
-			
-		
-		
 
 	}
 	catch(e){
