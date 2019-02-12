@@ -55,10 +55,17 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - dynamodb:GetRecords
+        - dynamodb:GetShardIterator
+        - dynamodb:DescribeStream
+        - dynamodb:ListStream
+
+
 
       Resource:
         - "Fn::GetAtt": [OrdersTable, Arn]
         - "Fn::GetAtt": [StudentsTable, Arn]
+        - arn:aws:dynamodb:us-east-1:298693910236:table/dev-order/stream/2019-02-12T13:05:28.865
 
 
 
@@ -85,6 +92,16 @@ functions:
           cors: true
           integration: lambda-proxy
 
+  record:
+    handler: src/graphql.record
+    events: 
+      - stream:
+          type: dynamodb
+          arn: 
+            Fn::GetAtt:
+              - ${self:custom.OrdersDB}
+              - StreamArn 
+            batchSize: 1
           
 
 

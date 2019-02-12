@@ -69,3 +69,15 @@ export const studentOrderList = async (args, context) => {
    }
 }
 
+export const activityList  = async (Args, context) => {
+    const params = {
+        TableName: process.env.StudentsDB
+    }
+
+    try{
+        const result = await dynamoDBLib.call("scan", )
+    } catch(e){
+        return e;
+    }
+}
+
