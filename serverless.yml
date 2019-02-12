@@ -94,13 +94,13 @@ functions:
 
   record:
     handler: src/graphql.record
-    events: 
-      - stream: arn:aws:dynamodb:us-east-1:298693910236:table/dev-order/stream/2019-02-12T13:05:28.865
-      - stream: 
-        type: dynamodb
-        batchSize: 1
-        arn: 
-         Fn::GetAtt: [OrdersTable, StreamArn]
+    #events: 
+      ##- stream: arn:aws:dynamodb:us-east-1:298693910236:table/dev-order/stream/2019-02-12T13:05:28.865
+      #- stream: 
+       # type: dynamodb
+        #batchSize: 1
+        #arn: 
+        # Fn::GetAtt: [OrdersTable, StreamArn]
               
             
           
