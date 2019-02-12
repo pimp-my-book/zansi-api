@@ -99,7 +99,7 @@ functions:
           type: dynamodb
           arn: 
             Fn::GetAtt:
-              - OrdersTable
+              - ${self:custom.OrdersDB}
               - StreamArn 
             batchSize: 1
           
