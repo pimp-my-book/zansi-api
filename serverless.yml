@@ -65,7 +65,7 @@ provider:
       Resource:
         - "Fn::GetAtt": [OrdersTable, Arn]
         - "Fn::GetAtt": [StudentsTable, Arn]
-        - arn:aws:dynamodb:us-east-1:298693910236:table/dev-order/stream/2019-02-12T13:05:28.865
+        #- arn:aws:dynamodb:us-east-1:298693910236:table/dev-order/stream/2019-02-12T13:05:28.865
 
 
 
