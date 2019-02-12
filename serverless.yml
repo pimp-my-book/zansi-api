@@ -81,8 +81,8 @@ functions:
           cors: true
           integration: lambda-proxy
           authorizer:
-              #arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_kqavT3wHs
-              #arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_ZuB3MH0bV
+              arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_kqavT3wHs
+              arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_ZuB3MH0bV
 
 
 
