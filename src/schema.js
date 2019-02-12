@@ -22,6 +22,7 @@ type Order {
   orderStatus: String
   excelDate: String
   statusDate: String
+  updateDate: String
   ETA: String
   Vendor: String
   bookCondition: String
@@ -35,6 +36,19 @@ type Order {
   
 }
  
+
+type Activities {
+  orderId: String
+  userId: String
+  ISBN: String
+  title: String
+  edition: String
+  author:  String
+  dateChange: String
+}
+
+
+
    enum AllowedVendors {
     PMBPAROW
     PMPSTELLIES
@@ -65,6 +79,7 @@ type Order {
       studentOrderList(userId: String!): [Order]
       viewOrder(orderId:String!,userId: String!): Order
       orderList: [Order]
+      activityList: [Activities]
     }
 
     type Mutation {
@@ -107,6 +122,14 @@ type Order {
         leadTime: String
       ): Order
       
+      updateOrder(
+        orderId: String!,
+        userId: String!,
+        ISBN: String,
+        title: String,
+        edition: String,
+        author:  String,
+      ): Order
 
     }
    
