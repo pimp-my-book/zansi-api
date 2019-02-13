@@ -1,5 +1,5 @@
 import {orderList, viewOrder, studentOrderList } from "./Query";
-import {placeOrder, updateOrderInfo, updateOrderStatus, updateOrder} from "./Mutation";
+import {placeOrder, updateOrderInfo, updateOrderStatus, updateOrder, cancelOrder} from "./Mutation";
 
 
 export const resolvers = {
@@ -13,6 +13,7 @@ export const resolvers = {
 		placeOrder: (root,args,context) => placeOrder(args,context),
 		updateOrderInfo: (root, args, context) => updateOrderInfo(args,context),
 		updateOrderStatus: (root, args, context) => updateOrderStatus(args, context),
-		updateOrder: (root, args, context) =>  updateOrder(args, context)
+		updateOrder: (root, args, context) =>  updateOrder(args, context),
+		cancelOrder: (root, args, context) => cancelOrder(args, context)
 	},
 };
