@@ -56,6 +56,7 @@ exports.graphqlHandler = (event,context,callback) =>{
 	return handler(event, context,callback);
 };
 
+/*
 exports.record = (event, context, callback) => {
 	event.Records.forEach((record) => {
 		console.log(record.eventID);
@@ -64,4 +65,4 @@ exports.record = (event, context, callback) => {
 
 	});
 	callback(null,`Processed ${event.Records.length}`);
-}
+}*/

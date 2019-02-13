@@ -101,16 +101,16 @@ export const updateOrderInfo = async (args, context) => {
         },
         ExpressionAttributeValues: {
          
-         ":ETA": args.ETA,
-         ":Vendor": args.Vendor,
-         ":bookCondition": args.bookCondition,
-         ":deliveryMethod": args.deliveryMethod,
-         ":deliveryDate": args.deliveryDate,
-         ":costPrice": args.costPrice,
-         ":sellingPrice": args.sellingPrice,
-         ":wayBillNumber": args.wayBillNumber,
-         ":leadTime": args.leadTime,
-         ":courierCost": args.courierCost
+         ":ETA": args.ETA || null,
+         ":Vendor": args.Vendor || null,
+         ":bookCondition": args.bookCondition || null,
+         ":deliveryMethod": args.deliveryMethod || null,
+         ":deliveryDate": args.deliveryDate || null,
+         ":costPrice": args.costPrice || null,
+         ":sellingPrice": args.sellingPrice || null,
+         ":wayBillNumber": args.wayBillNumber || null,
+         ":leadTime": args.leadTime || null,
+         ":courierCost": args.courierCost || null
         },
         UpdateExpression: 'SET  ETA = :ETA, Vendor = :Vendor,bookCondition = :bookCondition,deliveryMethod = :deliveryMethod,deliveryDate = :deliveryDate,costPrice = :costPrice,sellingPrice = :sellingPrice,wayBillNumber = :wayBillNumber,leadTime = :leadTime, courierCost = :courierCost',
         ReturnValues: 'ALL_NEW' 
@@ -214,4 +214,43 @@ export const updateOrderInfo = async (args, context) => {
     } catch(e){
         return e;
     }
+ }
+
+
+ export const cancelOrder = async (args, context) => {
+     const params = {
+         TableName: process.env.OrdersDB,
+         Key: {
+             userId: args.userId,
+             orderId: args.orderId
+
+         }, 
+         ExpressionAttributeValues: {
+             ":orderStatus": args.orderStatus,
+             ":statusDate": Date.now()
+         },
+         UpdateExpression: 'SET  orderStatus = :orderStatus, statusDate = :statusDate',
+         ReturnValues: 'ALL_NEW' 
+     }
+
+
+     try {
+         const result = await dynamoDBLib.call("update", params);
+
+
+         const mailRes = await transport.sendEmail({
+            from: 'noreply@pimpmybook.co.za',
+            to: "pmbamogelang@gmail.com",
+            subject: `Order (${args.orderId}) Cancellation`,
+            TextBody: mailTemp(` Order (${args.orderId}) has been requested to be cancelled by ${context.event.requestContext.authorizer.claims["custom:FullName"]}. \n
+            It now has a status of: ${args.orderStatus}`)
+        }).then(response => {
+            console.log(response.message)
+        });
+
+
+        return {orderStatus:result.Item};
+     } catch(e){
+         return e;
+     }
  }

@@ -99,7 +99,10 @@ type Activities {
         wayBillNumber: String,
         leadTime: String): Order
 
-      cancelOrder(id:ID!):Order
+      cancelOrder(
+        orderId:String!,
+        userId: String!,
+        orderStatus: String):Order
 
       updateOrderStatus(
         orderId:String!,
