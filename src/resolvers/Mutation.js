@@ -227,9 +227,10 @@ export const updateOrderInfo = async (args, context) => {
          }, 
          ExpressionAttributeValues: {
              ":orderStatus": args.orderStatus,
-             ":statusDate": Date.now()
+             ":statusDate": Date.now(),
+	      ":updateDate": Date.now()
          },
-         UpdateExpression: 'SET  orderStatus = :orderStatus, statusDate = :statusDate',
+         UpdateExpression: 'SET  orderStatus = :orderStatus, statusDate = :statusDate, updateDate = :updateDate',
          ReturnValues: 'ALL_NEW' 
      }
 
