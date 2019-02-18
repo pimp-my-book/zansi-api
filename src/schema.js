@@ -1,27 +1,87 @@
 const schema = `
 
-
+"""
+An Order is placed by a student for a book or calculator. It is then updated by staff.
+"""
 type Order {
+  """
+  The order's unique ID
+  """
   orderId: String!
+  """
+  The User's cognito sub
+  """
   userId: String!
+  """
+  The students university studnet number
+  """
   studentNumber: String
+  """
+  The students full name
+  """
   name: String
+  """
+  the students email address
+  """
   email: String
+  """
+  the students univeristy of study
+  """
   univeristy: String
+  """
+  the students degree of study
+  """
   degree: String
+  """
+  the students bursary 
+  """
   bursary: String
+  """
+  the students cell phone number (RSA) 
+  """
   cellNumber: String
+  """
+  the students delivery address 
+  """
   address: String
-
+  """
+  the book's ISBN Number 
+  """
   ISBN: String!
+  """
+  the title of the book 
+  """
   title: String!
+  """
+  the edition of the book 
+  """
   edition: String!
+  """
+  the author of the book 
+  """
   author:  String!
+  """
+  the date the book was ordered
+  """
   dateOrdered: String!
+  """
+  A depricated attribute
+  """
   status: String
+  """
+  the status of the book
+  """
   orderStatus: String
+  """
+  the the order date for exporting to an excel spreadsheet 
+  """
   excelDate: String
+  """
+  the date the status was changed
+  """
   statusDate: String
+
+
   updateDate: String
   ETA: String
   Vendor: String
