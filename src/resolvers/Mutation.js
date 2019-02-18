@@ -241,8 +241,8 @@ export const updateOrderInfo = async (args, context) => {
 
          const mailRes = await transport.sendEmail({
             from: 'noreply@pimpmybook.co.za',
-            to: "pmbamogelang@gmail.com",
-            subject: `Order (${args.orderId}) Cancellation`,
+            to: "moshal@pimpmybook.co.za",
+            subject: `Order (${args.orderId}) Cancellation Request`,
             TextBody: mailTemp(` Order (${args.orderId}) has been requested to be cancelled by ${context.event.requestContext.authorizer.claims["custom:FullName"]}. \n
             It now has a status of: ${args.orderStatus}`)
         }).then(response => {
