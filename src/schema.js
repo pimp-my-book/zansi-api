@@ -81,31 +81,54 @@ type Order {
   """
   statusDate: String
 
-
+  """
+  the date a student updates the status
+  """
   updateDate: String
+  """
+  the estimated date of delivery for an order
+  """
   ETA: String
+  """
+  the vendor choosen for an order
+  """
   Vendor: String
+  """
+  the condition of the book
+  """
   bookCondition: String
+  """
+  the how the order will be delviered
+  """
   deliveryMethod: String
+  """
+  the date the order was delivered
+  """
   deliveryDate: String
+  """
+  the purchase price of the book
+  """
   costPrice: String
+  """
+  the selling price of the book
+  """
   sellingPrice: String
+  """
+  the couriers waybill number
+  """
   wayBillNumber: String
+  """
+  the delviery charges to a book
+  """
   courierCost: String
+  """
+  the how many days it took to deliver the book.
+  """
   leadTime: String
   
 }
  
 
-type Activities {
-  orderId: String
-  userId: String
-  ISBN: String
-  title: String
-  edition: String
-  author:  String
-  dateChange: String
-}
 
 
 
@@ -136,15 +159,27 @@ type Activities {
 
     type Query {
       hello: String
+      """
+      A list of all the student's orders
+      """
       studentOrderList(userId: String!): [Order]
+      """
+      A query to view an indiviudal order
+      """
       viewOrder(orderId:String!,userId: String!): Order
+      """
+      A query to get all the orders placed
+      """
       orderList: [Order]
-      activityList: [Activities]
     }
 
     type Mutation {
 
-      placeOrder(ISBN: String!,
+      """ 
+      Allows student place an order
+      """
+      placeOrder(
+        ISBN: String!,
         title: String!,
         edition: String!,
         author:String!,
@@ -159,17 +194,26 @@ type Activities {
         wayBillNumber: String,
         leadTime: String): Order
 
+      """
+      Allows student to request to cancel an order
+      """
       cancelOrder(
         orderId:String!,
         userId: String!,
         orderStatus: String):Order
 
+        """
+       Allows staff to update the status of an order
+      """
       updateOrderStatus(
         orderId:String!,
         userId: String!,
         orderStatus: String
         email:String):Order
       
+        """
+      Allows staff to update the order info of an order
+      """
       updateOrderInfo(
         orderId:String!,
         userId: String!,
@@ -185,14 +229,7 @@ type Activities {
         leadTime: String
       ): Order
       
-      updateOrder(
-        orderId: String!,
-        userId: String!,
-        ISBN: String,
-        title: String,
-        edition: String,
-        author:  String,
-      ): Order
+     
 
     }
    

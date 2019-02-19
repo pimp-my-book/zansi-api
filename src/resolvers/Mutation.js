@@ -169,52 +169,6 @@ export const updateOrderInfo = async (args, context) => {
  }
  
 
- export const updateOrder = async (args, context) => {
-     
-    const orderparams = {
-        TableName: process.env.OrdersDB,
-        Key: {
-            userId: args.userId,
-            orderId:args.orderId
-        }, 
-        ExpressionAttributeValues: {
-            ":title" : args.title,
-            ":ISBN": args.ISBN,
-            ":edition": args.edition,
-            ":author": args.author,
-            ":updateDate": Date.now()
-        },
-        UpdateExpression: "SET title = :title, ISBN = :ISBN, edition = :edition, author = :author, updateDate = :updateDate",
-        ReturnValues: "ALL_NEW"
-    }
-
-    const activityParams = {
-        TableName: process.env.StudentsDB,
-        Item: {
-            userId: "6f1d9b77-2843-4b0b-b8bb-eb8a877f80a8",//context.event.requestContext.authorizer.claims.sub,
-            orderId: "02c7a6b0-17e1-11e9-8afc-3507af94e477",//args.orderId,
-            title : args.title,
-            ISBN: args.ISBN,
-            edition: args.edition,
-            author: args.author,
-            updateDate: Date.now()
-        }
-
-
-    }
-
-
-    try {
-       // await dynamoDBLib.call("put", activityParams);
-
-       const result =  await dynamoDBLib.call("update", orderparams);
-       
-        return result.Item
-
-    } catch(e){
-        return e;
-    }
- }
 
 
  export const cancelOrder = async (args, context) => {
