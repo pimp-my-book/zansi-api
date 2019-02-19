@@ -176,7 +176,7 @@ type Order {
     type Mutation {
 
       """ 
-      Allows student place an order
+      Allows student to place an order
       """
       placeOrder(
         ISBN: String!,
