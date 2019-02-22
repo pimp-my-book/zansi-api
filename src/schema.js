@@ -126,11 +126,18 @@ type Order {
   """
   leadTime: String
   
+  assignedTo: User
+  staffId: String
+  assignedDate: String
+  completionDate: String!
+  assignStatus: Boolean
 }
  
 
 
-
+type Users {
+  staffId: String!
+}
 
    enum AllowedVendors {
     PMBPAROW
@@ -171,6 +178,8 @@ type Order {
       A query to get all the orders placed
       """
       orderList: [Order]
+      staffTickets(userId:String!,orderId:String!, staffId: String!): Order
+      allStaff: [Users]!
     }
 
     type Mutation {
@@ -229,6 +238,8 @@ type Order {
         leadTime: String
       ): Order
       
+      acceptTicket(assignStatus: Boolean!): Order
+      reassignTicket(orderId: String!, userId: String!, staffId: String!): Order
      
 
     }
