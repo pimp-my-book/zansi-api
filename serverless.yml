@@ -15,7 +15,6 @@ custom:
   region: ${opt:region, self:provider.region}
   devCognitoPool: ${self:custom.environment.UserPoolId}
   prodCognitoPool: ${self:custom.environment.UserPoolId}
-  accountId: '298693910236'
   OrdersDB: ${self:custom.stage}-order
   StudentsDB: ${self:custom.stage}-student
   #tableName: ${self:custom.stage}-orders
@@ -65,7 +64,6 @@ provider:
       Resource:
         - "Fn::GetAtt": [OrdersTable, Arn]
         - "Fn::GetAtt": [StudentsTable, Arn]
-        #- arn:aws:dynamodb:us-east-1:298693910236:table/dev-order/stream/2019-02-12T13:05:28.865
 
 
 
@@ -81,8 +79,8 @@ functions:
           cors: true
           integration: lambda-proxy
           authorizer:
-              arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_kqavT3wHs
-              arn:aws:cognito-idp:us-east-1:298693910236:userpool/us-east-1_ZuB3MH0bV
+              arn:aws:cognito-idp:us-east-1:{}:userpool/us-east-1_kqavT3wHs
+              arn:aws:cognito-idp:us-east-1:{}:userpool/us-east-1_ZuB3MH0bV
 
 
 
@@ -95,7 +93,6 @@ functions:
   #record:
     #handler: src/graphql.record
     #events: 
-      ##- stream: arn:aws:dynamodb:us-east-1:298693910236:table/dev-order/stream/2019-02-12T13:05:28.865
       #- stream: 
        # type: dynamodb
         #batchSize: 1
